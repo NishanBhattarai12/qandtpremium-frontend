@@ -1,5 +1,8 @@
 
 import CarouselComponent from "@/components/home/Carousel";
+import Customer from "@/components/home/Customer";
+import OurService from "@/components/home/OurService";
+import Welcome from "@/components/home/Welcome";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +17,11 @@ export default function Home() {
   const accessToken = useSelector((state) => state.auth.accessToken);
 
   return(
-
    <>
-   <CarouselComponent/>
+    <CarouselComponent/>
+    <Welcome />
+    <Customer />
+    <OurService />
    </>
   );
 }
