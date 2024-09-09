@@ -33,7 +33,9 @@ const login = () => {
       if (!response.ok) {
         if (response.status === 400) {
           const errorData = await response.json();
-          setErrorMessage(errorData.error);
+          const firstErrorKey = Object.keys(errorData)[0];
+          const firstErrorMessage = errorData[firstErrorKey];
+          setErrorMessage(`${firstErrorMessage}`);
           return;
         }
       }
