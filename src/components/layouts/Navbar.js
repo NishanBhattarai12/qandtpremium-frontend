@@ -26,7 +26,7 @@ const Navbar = () => {
   const handleLogout = async (event) => {
     event.stopPropagation();
     
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/logout`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/users/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -148,12 +148,12 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link href="/signup">
+                <Link href="/login">
                   <button
-                    onClick={() => handleLinkClick('/signup')}
+                    onClick={() => handleLinkClick('/login')}
                     className="bg-[#64AE33] text-white py-2 px-4 rounded hover:bg-green-800 flex items-center"
                   >
-                    SignUp
+                    Login
                     <AiOutlineUser size={20} className="ml-2" />
                   </button>
                 </Link>

@@ -34,7 +34,7 @@ const OurService = () => {
             />
             
             <h3 className="text-xl font-semibold">Flight Service</h3>
-            <Link href='/SearchFlight'>
+            <Link href='/search-flight'>
               <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Book Now...</button>
               </Link>
           </div>

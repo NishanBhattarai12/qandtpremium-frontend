@@ -42,7 +42,7 @@ const signup = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

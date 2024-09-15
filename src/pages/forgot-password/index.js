@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/forgot-password`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/users/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

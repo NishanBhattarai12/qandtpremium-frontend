@@ -1,0 +1,202 @@
+{
+  "airports": [
+    {
+      "name": "Sydney Kingsford Smith Airport",
+      "iata_code": "SYD",
+      "city": "Sydney",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Melbourne Airport",
+      "iata_code": "MEL",
+      "city": "Melbourne",
+      "state": "Victoria"
+    },
+    {
+      "name": "Brisbane Airport",
+      "iata_code": "BNE",
+      "city": "Brisbane",
+      "state": "Queensland"
+    },
+    {
+      "name": "Perth Airport",
+      "iata_code": "PER",
+      "city": "Perth",
+      "state": "Western Australia"
+    },
+    {
+      "name": "Adelaide Airport",
+      "iata_code": "ADL",
+      "city": "Adelaide",
+      "state": "South Australia"
+    },
+    {
+      "name": "Gold Coast Airport",
+      "iata_code": "OOL",
+      "city": "Gold Coast",
+      "state": "Queensland"
+    },
+    {
+      "name": "Cairns Airport",
+      "iata_code": "CNS",
+      "city": "Cairns",
+      "state": "Queensland"
+    },
+    {
+      "name": "Canberra Airport",
+      "iata_code": "CBR",
+      "city": "Canberra",
+      "state": "Australian Capital Territory"
+    },
+    {
+      "name": "Darwin International Airport",
+      "iata_code": "DRW",
+      "city": "Darwin",
+      "state": "Northern Territory"
+    },
+    {
+      "name": "Hobart Airport",
+      "iata_code": "HBA",
+      "city": "Hobart",
+      "state": "Tasmania"
+    },
+    {
+      "name": "Avalon Airport",
+      "iata_code": "AVV",
+      "city": "Avalon",
+      "state": "Victoria"
+    },
+    {
+      "name": "Townsville Airport",
+      "iata_code": "TSV",
+      "city": "Townsville",
+      "state": "Queensland"
+    },
+    {
+      "name": "Newcastle Airport",
+      "iata_code": "NTL",
+      "city": "Newcastle",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Alice Springs Airport",
+      "iata_code": "ASP",
+      "city": "Alice Springs",
+      "state": "Northern Territory"
+    },
+    {
+      "name": "Broome International Airport",
+      "iata_code": "BME",
+      "city": "Broome",
+      "state": "Western Australia"
+    },
+    {
+      "name": "Launceston Airport",
+      "iata_code": "LST",
+      "city": "Launceston",
+      "state": "Tasmania"
+    },
+    {
+      "name": "Rockhampton Airport",
+      "iata_code": "ROK",
+      "city": "Rockhampton",
+      "state": "Queensland"
+    },
+    {
+      "name": "Port Macquarie Airport",
+      "iata_code": "PQQ",
+      "city": "Port Macquarie",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Mount Isa Airport",
+      "iata_code": "ISA",
+      "city": "Mount Isa",
+      "state": "Queensland"
+    },
+    {
+      "name": "Albury Airport",
+      "iata_code": "ABX",
+      "city": "Albury",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Gladstone Airport",
+      "iata_code": "GLT",
+      "city": "Gladstone",
+      "state": "Queensland"
+    },
+    {
+      "name": "Geraldton Airport",
+      "iata_code": "GET",
+      "city": "Geraldton",
+      "state": "Western Australia"
+    },
+    {
+      "name": "Hervey Bay Airport",
+      "iata_code": "HVB",
+      "city": "Hervey Bay",
+      "state": "Queensland"
+    },
+    {
+      "name": "Kalgoorlie-Boulder Airport",
+      "iata_code": "KGI",
+      "city": "Kalgoorlie",
+      "state": "Western Australia"
+    },
+    {
+      "name": "Coffs Harbour Airport",
+      "iata_code": "CFS",
+      "city": "Coffs Harbour",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Dubbo City Regional Airport",
+      "iata_code": "DBO",
+      "city": "Dubbo",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Ballina Byron Gateway Airport",
+      "iata_code": "BNK",
+      "city": "Ballina",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Mackay Airport",
+      "iata_code": "MKY",
+      "city": "Mackay",
+      "state": "Queensland"
+    },
+    {
+      "name": "Port Hedland International Airport",
+      "iata_code": "PHE",
+      "city": "Port Hedland",
+      "state": "Western Australia"
+    },
+    {
+      "name": "Proserpine Whitsunday Coast Airport",
+      "iata_code": "PPP",
+      "city": "Proserpine",
+      "state": "Queensland"
+    },
+    {
+      "name": "Taree Airport",
+      "iata_code": "TRO",
+      "city": "Taree",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Wagga Wagga Airport",
+      "iata_code": "WGA",
+      "city": "Wagga Wagga",
+      "state": "New South Wales"
+    },
+    {
+      "name": "Whyalla Airport",
+      "iata_code": "WYA",
+      "city": "Whyalla",
+      "state": "South Australia"
+    }
+  ]
+}

@@ -25,7 +25,7 @@ const ResetPassword = () => {
   useEffect(() => {
     const checkToken = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/reset-password/${token}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/users/reset-password/${token}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/reset-password/${token}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/users/reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
