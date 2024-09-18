@@ -42,11 +42,11 @@ const FlightInfo = ({ flight }) => {
             <div className="flex mb-4">
                 <div className="w-1/6">
                     <h3 className="text-lg font-semibold">Price</h3>
-                    <p>${flightData.price}</p>
+                    <p>${flight.price}</p>
                 </div>
                 <div className="w-1/6">
                     <h3 className="text-lg font-semibold">Type</h3>
-                    <p>{flightData.type}</p>
+                    <p>{flight.type}</p>
                 </div>
             </div>
         </div>
