@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { FaPlane, FaUser, FaChild, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { format } from 'date-fns';
+import { useDispatch } from "react-redux";
+import { addBooking } from "@/store/bookingSlice";
+import { useRouter } from 'next/router';
 
 const FlightSearchForm = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +39,14 @@ const FlightSearchForm = () => {
     'Ballarat': '/m/01kq5',
     'Bendigo': '/m/0gxbl',
   }
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleBookNow = (flight) => {
+    dispatch(addBooking(flight));
+    router.push('/search-flight/booking');
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -242,7 +253,7 @@ const FlightSearchForm = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#64AE33] hover:bg-[#64AE33] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#64AE33] transition duration-150 ease-in-out"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#64AE33] hover:bg-[#56982B] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#56982B] transition duration-150 ease-in-out"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -286,7 +297,7 @@ const FlightSearchForm = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-bold text-green-600">${flight.price}</p>
-                  <button className="mt-2 px-4 py-2 bg-[#33AE64] text-white rounded-md hover:bg-[#33AE64] transition duration-150 ease-in-out">
+                  <button onClick={() => handleBookNow(flight)} className="mt-2 px-4 py-2 bg-[#33AE64] text-white rounded-md hover:bg-[#299755] transition duration-150 ease-in-out">
                     Book Now
                   </button>
                 </div>
