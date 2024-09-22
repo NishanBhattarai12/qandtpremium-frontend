@@ -43,9 +43,28 @@ const FlightSearchForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleBookNow = (flight) => {
-    dispatch(addBooking(flight));
-    router.push('/search-flight/booking');
+  const handleBookNow = async (flight) => {
+    try {
+      const response = await fetch("https://api.stripe.com/v1/payment_intents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRIP_SECRET_KEY}`
+        },
+        body: new URLSearchParams({
+          amount: flight.price,
+          currency: "usd"
+        })
+      });
+
+      const data = await response.json();
+      flight.clientSecret = data.client_secret;
+
+      dispatch(addBooking(flight));
+      router.push('/search-flight/booking');
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
+    }
   };
 
   const handleInputChange = (e) => {
