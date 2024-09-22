@@ -52,7 +52,7 @@ const FlightSearchForm = () => {
           "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRIP_SECRET_KEY}`
         },
         body: new URLSearchParams({
-          amount: flight.price,
+          amount: flight.price * 100,
           currency: "usd"
         })
       });
