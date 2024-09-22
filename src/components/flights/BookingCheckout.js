@@ -19,7 +19,7 @@ const BookingCheckout = () => {
         const result = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `${process.env.NEXT_PUBLIC_FRONTEND_BASE_URL}search-flight?success=true`,
+                return_url: `${process.env.NEXT_PUBLIC_FRONTEND_BASE_URL}search-flight/booking?success=true`,
             },
         });
 
