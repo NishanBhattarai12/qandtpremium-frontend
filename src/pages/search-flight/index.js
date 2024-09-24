@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { FaPlane, FaUser, FaChild, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 import { addBooking } from "@/store/bookingSlice";
 import { useRouter } from 'next/router';
 
 const FlightSearchForm = () => {
+  const router = useRouter();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+
+  if (!accessToken) {
+    router.push('/login');
+  }
+
   const [formData, setFormData] = useState({
     from: "",
     to: "",
@@ -42,7 +50,6 @@ const FlightSearchForm = () => {
   }
 
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const handleBookNow = async (flight) => {
     try {
