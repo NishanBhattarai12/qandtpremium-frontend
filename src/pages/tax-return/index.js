@@ -1,16 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { addTaxReturn } from '@/store/taxReturnSlice';
+import { useRouter } from 'next/router';
 
 const TaxReturn = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    dob: '',
+    address: '',
+    taxNumber: '',
+    jobTitle: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("https://api.stripe.com/v1/payment_intents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRIP_SECRET_KEY}`
+        },
+        body: new URLSearchParams({
+          amount: 199 * 100,
+          currency: "usd"
+        })
+      });
+
+      const data = await response.json();
+      dispatch(addTaxReturn({
+        ...formData,
+        clientSecret: data.client_secret
+      }));
+      router.push('/tax-return/payment');
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
-     
-
-      {/* Main Content */}
       <div className="flex flex-col md:flex-row flex-grow">
-        {/* Left Half - Image with Text Overlay */}
         <div className="w-full md:w-1/2 relative">
           <img
-            src="/taxbackground.jpg" // Replace with your image path
+            src="/taxbackground.jpg"
             alt="Tax Return Image"
             className="w-[800px] h-[900px] object-cover"
           />
@@ -21,12 +67,10 @@ const TaxReturn = () => {
           </div>
         </div>
 
-        {/* Right Half - Form */}
         <div className="w-full md:w-1/2 p-8 bg-gray-100 flex items-center justify-center">
           <div className="w-full max-w-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Tax Return Form</h2>
-            <form className="space-y-4">
-              {/* First Name */}
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
                   First Name
@@ -35,12 +79,13 @@ const TaxReturn = () => {
                   type="text"
                   id="firstName"
                   name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Last Name */}
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
                   Last Name
@@ -49,12 +94,13 @@ const TaxReturn = () => {
                   type="text"
                   id="lastName"
                   name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Date of Birth */}
               <div>
                 <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
                   Date of Birth
@@ -63,12 +109,13 @@ const TaxReturn = () => {
                   type="date"
                   id="dob"
                   name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Current Address */}
               <div>
                 <label htmlFor="address" className="block text-sm font-medium text-gray-700">
                   Current Address
@@ -77,12 +124,13 @@ const TaxReturn = () => {
                   type="text"
                   id="address"
                   name="address"
+                  value={formData.address}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Tax Number or ABN Number */}
               <div>
                 <label htmlFor="taxNumber" className="block text-sm font-medium text-gray-700">
                   Tax Number or ABN Number
@@ -91,12 +139,13 @@ const TaxReturn = () => {
                   type="text"
                   id="taxNumber"
                   name="taxNumber"
+                  value={formData.taxNumber}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Job Title */}
               <div>
                 <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">
                   Job Title
@@ -105,12 +154,13 @@ const TaxReturn = () => {
                   type="text"
                   id="jobTitle"
                   name="jobTitle"
+                  value={formData.jobTitle}
+                  onChange={handleChange}
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 />
               </div>
 
-              {/* Message Box with Bank Details */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700">
                   Message (Bank Details)
@@ -118,13 +168,14 @@ const TaxReturn = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows="4"
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 ></textarea>
               </div>
 
-              {/* Submit Button */}
               <div className="text-center">
                 <button
                   type="submit"
@@ -137,8 +188,6 @@ const TaxReturn = () => {
           </div>
         </div>
       </div>
-
-     
     </div>
   );
 };
