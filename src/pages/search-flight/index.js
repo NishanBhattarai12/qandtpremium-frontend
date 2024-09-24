@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaPlane, FaUser, FaChild, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { format } from 'date-fns';
 import { useDispatch } from "react-redux";
 import { addBooking } from "@/store/bookingSlice";
 import { useRouter } from 'next/router';
@@ -9,6 +8,8 @@ const FlightSearchForm = () => {
   const [formData, setFormData] = useState({
     from: "",
     to: "",
+    fromName: "",
+    toName: "",
     adults: 1,
     children: 0,
   });
@@ -69,7 +70,14 @@ const FlightSearchForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const updatedFormData = { ...formData, [name]: value };
+    if (name === 'from') {
+      updatedFormData.fromName = e.target.options[e.target.selectedIndex].text;
+    }
+    if (name === 'to') {
+      updatedFormData.toName = e.target.options[e.target.selectedIndex].text;
+    }
+    setFormData(updatedFormData);
     setErrors({ ...errors, [name]: "" });
   };
 
@@ -123,8 +131,12 @@ const FlightSearchForm = () => {
             logo: result.best_flights[i].flights[0].airline_logo,
             airline: result.best_flights[i].flights[0].airline,
             price: result.best_flights[i].price,
-            departure: format(new Date(result.best_flights[i].flights[0].departure_airport.time), 'MMM dd, yyyy hh:mm a'),
-            arrival: format(new Date(result.best_flights[i].flights[0].arrival_airport.time), 'MMM dd, yyyy hh:mm a'),
+            departure: result.best_flights[i].flights[0].departure_airport.time,
+            arrival: result.best_flights[i].flights[0].arrival_airport.time,
+            from: `${result.best_flights[i].flights[0].departure_airport.name}, ${formData.fromName}`,
+            to: `${result.best_flights[i].flights[0].arrival_airport.name}, ${formData.toName}`,
+            airplane: result.best_flights[i].flights[0].airplane,
+            flight_number: result.best_flights[i].flights[0].flight_number,
           });
         }
 
@@ -134,8 +146,12 @@ const FlightSearchForm = () => {
             logo: result.other_flights[i].flights[0].airline_logo,
             airline: result.other_flights[i].flights[0].airline,
             price: result.other_flights[i].price,
-            departure: format(new Date(result.other_flights[i].flights[0].departure_airport.time), 'MMM dd, yyyy hh:mm a'),
-            arrival:  format(new Date(result.other_flights[i].flights[0].arrival_airport.time), 'MMM dd, yyyy hh:mm a'),
+            departure: result.other_flights[i].flights[0].departure_airport.time,
+            arrival: result.other_flights[i].flights[0].arrival_airport.time,
+            from: `${result.other_flights[i].flights[0].departure_airport.name}, ${formData.fromName}`,
+            to: `${result.other_flights[i].flights[0].arrival_airport.name}, ${formData.toName}`,
+            airplane: result.other_flights[i].flights[0].airplane,
+            flight_number: result.other_flights[i].flights[0].flight_number,
           });
         }
 
