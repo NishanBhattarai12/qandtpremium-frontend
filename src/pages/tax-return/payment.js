@@ -11,7 +11,6 @@ const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_K
 const TaxReturnPayment = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const taxReturn = useSelector((state) => state.taxReturn.taxReturn);
-    console.log(taxReturn);
     const [success, setSuccess] = useState(null);
 
     useEffect(() => {
@@ -26,25 +25,22 @@ const TaxReturnPayment = () => {
 
     const sendPostRequest = async (paymentId) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/tax-return/payment`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/send-tax-return-request`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    booking_date: new Date(),
-                    flight_number: bookings.flight_number,
-                    airplane_name: bookings.airplane,
-                    logo_url: bookings.logo,
-                    departure_time: bookings.departure,
-                    arrival_time: bookings.arrival,
-                    price: bookings.price,
-                    departure_location: bookings.from,
-                    arrival_location: bookings.to,
-                    airline: bookings.airline,
-                    stripe_payment_id: paymentId,
-                    status: 'paid'
+                    first_name: taxReturn.firstName,
+                    last_name: taxReturn.lastName,
+                    dob: taxReturn.dob,
+                    address: taxReturn.address,
+                    tax_number: taxReturn.taxNumber,
+                    job_title: taxReturn.jobTitle,
+                    message: taxReturn.message,
+                    file_id: taxReturn.fileid,
+                    payment_id: paymentId,
                 }),
             });
 
@@ -70,8 +66,8 @@ const TaxReturnPayment = () => {
             <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 {success == 'succeeded' && (
                     <Response
-                        title="Payment Successful"
-                        message="Your payment has been successfully completed."
+                        title="Tax Return Submitted Successful"
+                        message="Your tax return has been successfully submitted."
                         success={true}
                     />
                 )}
@@ -100,6 +96,7 @@ const TaxReturnPayment = () => {
                                         <p className="text-sm text-gray-600">Tax Number: {taxReturn.taxNumber}</p>
                                         <p className="text-sm text-gray-600">Job Title: {taxReturn.jobTitle}</p>
                                         <p className="text-sm text-gray-600">Message: {taxReturn.message}</p>
+                                        <p className="text-sm text-gray-600">File: {taxReturn.filename}</p>
                                     </div>
                                     </div>
                                     <div className="text-right">

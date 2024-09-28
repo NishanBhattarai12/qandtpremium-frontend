@@ -20,7 +20,7 @@ const OurService = () => {
               className="w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
             />
                 <h3 className="text-xl font-semibold">Tax Return</h3>
-                <Link href="/TaxReturn">
+                <Link href="/tax-return">
               <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Apply Now...</button>
               </Link>
           </div>

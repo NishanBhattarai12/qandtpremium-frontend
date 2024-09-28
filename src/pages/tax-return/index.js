@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 import { addTaxReturn } from '@/store/taxReturnSlice';
 import { useRouter } from 'next/router';
 
 const TaxReturn = () => {
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  if (!accessToken) {
+    router.push('/login');
+  }
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -15,7 +21,35 @@ const TaxReturn = () => {
     taxNumber: '',
     jobTitle: '',
     message: '',
+    fileid: '',
+    filename: '',
   });
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+  
+    const fileFormData = new FormData();
+    fileFormData.append('file', file);
+  
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/files/file-upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: fileFormData
+      });
+  
+      const data = await response.json();
+      setFormData({
+        ...formData,
+        fileid: data.fileid,
+        filename: file.name
+      });
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -174,6 +208,21 @@ const TaxReturn = () => {
                   className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
                   required
                 ></textarea>
+              </div>
+
+              <div>
+                <label htmlFor="file" className="block text-sm font-medium text-gray-700">
+                  Upload File
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  required
+                />
               </div>
 
               <div className="text-center">
