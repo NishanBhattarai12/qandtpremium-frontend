@@ -5,8 +5,6 @@ const AboutUs = ({ data, visiondata }) => {
   data = data[0];
   visiondata = visiondata[0];
 
-  console.log(visiondata);
-
   return (
     <>
       <div className="relative h-[50vh] bg-cover bg-center" style={{ backgroundImage: "url('https://qtpremium.com.au/wp-content/uploads/2022/09/aboutus.jpg')" }}>
