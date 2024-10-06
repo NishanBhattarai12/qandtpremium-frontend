@@ -83,7 +83,7 @@ const Navbar = () => {
               <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
             </li>
             <li className="relative text-xl uppercase group">
-              <Link href="/AboutUs" className="hover:text-[#64AE33] transition-all duration-300">About Us</Link>
+              <Link href="/about-us" className="hover:text-[#64AE33] transition-all duration-300">About Us</Link>
               <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
             </li>
             <li className="relative text-xl uppercase group">
@@ -189,7 +189,7 @@ const Navbar = () => {
             <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
           </li>
           <li className="py-4 text-xl text-white hover:text-gray-200 transition-transform duration-300 transform hover:scale-105">
-            <Link href="/AboutUs" onClick={() => setMenuOpen(false)}>About Us</Link>
+            <Link href="/about-us" onClick={() => setMenuOpen(false)}>About Us</Link>
           </li>
           <li className="py-4 text-xl text-white hover:text-gray-200 transition-transform duration-300 transform hover:scale-105">
             <Link href="/service-specialities" onClick={() => setMenuOpen(false)}>Service and Specialities</Link>
