@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 body {
   font-family: 'Fairplay Display', sans-serif;
   background-color: #ffffff; /* Light mode background */
@@ -24,4 +22,18 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 1s ease-out forwards;
+}
+
+.contents p {
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin-bottom: 15px;
+}
+
+ul li {
+  margin-bottom: 7px;
 }
