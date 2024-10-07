@@ -34,7 +34,7 @@ const Footer = () => {
 
   return (
     <div className="bg-[#64AE33] text-white py-16">
-      <div className="max-w-6xl mx-auto px-4 grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-3 md:grid-cols-2 gap-8">
         <div className="flex flex-col items-start space-y-4">
           <div className="footer-img flex items-center">
             <img src="./logos.svg" alt="footerlogo" className="w-full h-auto bg-white" />
