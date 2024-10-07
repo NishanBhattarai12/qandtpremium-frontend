@@ -23,9 +23,7 @@ const ServiceAndSpecialities = ({ data, visiondata }) => {
             {data.introduction && (
                 <div className="p-8">
                     <h2 className="text-2xl text-gray-600 font-bold mb-4">Introduction</h2>
-                    <p className="mb-4 text-gray-600">
-                    {data.introduction}
-                    </p>
+                    <p className="mb-4 text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
                 </div>
             )}
 
