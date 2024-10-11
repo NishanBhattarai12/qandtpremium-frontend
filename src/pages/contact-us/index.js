@@ -5,6 +5,47 @@ const ContactUs = ({ data, visiondata }) => {
     data = data[0];
     console.log(data);
     visiondata = visiondata[0];
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [id]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSuccessMessage('');
+        setErrorMessage('');
+      
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/contactdetails/submit-contact-form`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+      
+        if (response.ok) {
+            setSuccessMessage('Form submitted successfully');
+            setFormData({
+                name: '',
+                email: '',
+                message: ''
+            })
+        } else {
+            setErrorMessage('Form submission failed');
+        }
+      };
 
     return (
         <>
@@ -43,50 +84,70 @@ const ContactUs = ({ data, visiondata }) => {
                 </div>
 
                 <div>
-                <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
-                <form>
-                    <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                        Name
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name"
-                        type="text"
-                        placeholder="Your name"
-                    />
-                    </div>
-                    <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="email"
-                        type="email"
-                        placeholder="Your email"
-                    />
-                    </div>
-                    <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
-                        Message
-                    </label>
-                    <textarea
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="message"
-                        placeholder="Your message"
-                        rows="5"
-                    ></textarea>
-                    </div>
-                    <div className="flex items-center justify-between">
-                    <button
-                        className="bg-[#3466AD] hover:bg-[#1D4C8C] text-white font-bold py-3 px-8 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                    >
-                        Send
-                    </button>
-                    </div>
-                </form>
+                    <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                            Name
+                            </label>
+                            <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="name"
+                            type="text"
+                            required
+                            placeholder="Your name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                            Email
+                            </label>
+                            <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="email"
+                            type="email"
+                            required
+                            placeholder="Your email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+                            Message
+                            </label>
+                            <textarea
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="message"
+                            placeholder="Your message"
+                            rows="5"
+                            value={formData.message}
+                            onChange={handleChange}
+                            ></textarea>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <button
+                            className="bg-[#3466AD] hover:bg-[#1D4C8C] text-white font-bold py-3 px-8 rounded focus:outline-none focus:shadow-outline"
+                            type="submit"
+                            >
+                            Send
+                            </button>
+                        </div>
+                    </form>
+
+                    {errorMessage && (
+                        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {errorMessage}
+                        </div>
+                    )}
+
+                    {successMessage && (
+                        <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                            {successMessage}
+                        </div>
+                    )}
                 </div>
             </div>
             </div>
