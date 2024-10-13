@@ -65,7 +65,7 @@ function CarouselComponent() {
           )
         }
       >
-        <div className='relative w-full h-[36rem] md:h-[48rem] lg:h-[60rem]'>
+        <div className='relative w-full h-[30rem]'>
           <img 
             src="./header1.jpg" 
             alt="tax" 
@@ -73,7 +73,7 @@ function CarouselComponent() {
           />
           <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
         </div>
-        <div className='relative w-full h-[36rem] md:h-[48rem] lg:h-[60rem]'>
+        <div className='relative w-full h-[30rem]'>
           <img 
             src="./header2.jpg" 
             alt="tax" 
@@ -81,7 +81,7 @@ function CarouselComponent() {
           />
           <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
         </div>
-        <div className='relative w-full h-[36rem] md:h-[48rem] lg:h-[60rem]'>
+        <div className='relative w-full h-[30rem]'>
           <img 
             src="./header3.jpg" 
             alt="tax" 
