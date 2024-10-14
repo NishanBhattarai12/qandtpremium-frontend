@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 import { setTokens } from '@/store/authSlice';
 import { FaUser, FaPlane, FaFileAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -9,7 +10,9 @@ const Dashboard = () => {
   const refreshToken = useSelector((state) => state.auth.refreshToken);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const router = useRouter();
 
+  const [flightsData, setFlightsData] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -18,15 +21,7 @@ const Dashboard = () => {
 
   const [activeContent, setActiveContent] = useState("profile");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
-
-  const flightsData = [
-    { destination: "Paris", date: "July 15, 2023", flightNumber: "AF1234" },
-    { destination: "Tokyo", date: "August 22, 2023", flightNumber: "JL5678" },
-    { destination: "New York", date: "September 10, 2023", flightNumber: "UA9012" },
-    { destination: "London", date: "October 5, 2023", flightNumber: "BA3456" },
-    { destination: "Sydney", date: "November 20, 2023", flightNumber: "QF7890" }
-  ];
+  const itemsPerPage = 4;
 
   const [formData, setFormData] = useState({
     name: user?.name || '',
@@ -125,6 +120,39 @@ const Dashboard = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    const fetchFlightsData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/flights/user-flights`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch flights data');
+        }
+
+        const flightsData = await response.json();
+        setFlightsData(flightsData);
+      } catch (error) {
+        console.error('An error occurred while fetching flights data:', error);
+      }
+    };
+
+    fetchFlightsData();
+  }, []);
+
+  useEffect(() => {
+    const { content } = router.query;
+    if(content != 'flights' && content != 'tax' && content != 'profile' && content != 'change-profile-details') {
+      setActiveContent('profile');
+    } else {
+      setActiveContent(content);
+    }
+  }, [router.query]);
 
   const renderContent = () => {
     switch (activeContent) {
@@ -235,9 +263,57 @@ const Dashboard = () => {
             <h2 className="text-2xl font-bold">My Flights Booking</h2>
             {paginatedFlights.map((flight, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow">
-                <p className="font-semibold">Flight to {flight.destination}</p>
-                <p>Date: {flight.date}</p>
-                <p>Flight Number: {flight.flightNumber}</p>
+                <div className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between flex-wrap">
+                    <img src={flight.logo_url} alt={flight.airline} className="h-8 mb-2 sm:mb-0" />
+                    <span className="text-lg font-semibold mb-2 sm:mb-0">{flight.airline}</span>
+                    <span className={`px-2 py-1 rounded-full text-sm ${flight.status === "pending" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}`}>
+                      {flight.status.charAt(0).toUpperCase() + flight.status.slice(1)}
+                    </span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div className="mb-2 sm:mb-0">
+                      <p className="text-sm text-gray-500">From</p>
+                      <p className="font-medium">{flight.departure_location}</p>
+                    </div>
+                    <FaPlane className="text-blue-500 my-2 sm:my-0 transform rotate-90 sm:rotate-0" />
+                    <div>
+                      <p className="text-sm text-gray-500">To</p>
+                      <p className="font-medium">{flight.arrival_location}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div className="mb-2 sm:mb-0">
+                      <p className="text-sm text-gray-500">Departure</p>
+                      <p className="font-medium">{new Date(flight.departure_time).toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Arrival</p>
+                      <p className="font-medium">{new Date(flight.arrival_time).toLocaleString()}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div className="mb-2 sm:mb-0">
+                      <p className="text-sm text-gray-500">Flight</p>
+                      <p className="font-medium">{flight.flight_number}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Aircraft</p>
+                      <p className="font-medium">{flight.airplane_name}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div className="mb-2 sm:mb-0">
+                      <p className="text-sm text-gray-500">Booking Date</p>
+                      <p className="font-medium">{new Date(flight.booking_date).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Price</p>
+                      <p className="font-medium text-green-600">${flight.price}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500">Payment ID: {flight.stripe_payment_id}</p>
+                </div>
               </div>
             ))}
             {renderPagination(flightsData.length)}

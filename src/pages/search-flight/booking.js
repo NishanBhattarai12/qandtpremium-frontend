@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/router";
 import { useSelector } from 'react-redux';
 import {Elements} from '@stripe/react-stripe-js';
 import BookingCheckout from "@/components/flights/BookingCheckout";
 import Response from "@/components/layouts/Response";
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 
 const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`);
 
@@ -12,6 +13,7 @@ const FlightBookingUI = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const bookings = useSelector((state) => state.booking.bookings);
     const [success, setSuccess] = useState(null);
+    const router = useRouter();
 
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -54,6 +56,9 @@ const FlightBookingUI = () => {
             }
             
             setSuccess('succeeded');
+            setTimeout(() => {
+                router.push('/dashboard?content=flights');
+            }, 600);
         } catch (error) {
             setSuccess('failed');
             console.error('Error making POST request:', error);

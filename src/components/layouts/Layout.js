@@ -7,7 +7,7 @@ function Layout({children}) {
     <div>
       <>
       <Navbar/>
-      <main className='pt-[5rem]'>{children}</main>
+      <main className='pt-[4rem]'>{children}</main>
        </>
        <Footer/>
     </div>
