@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Fairplay Display', sans-serif;
-  background-color: #ffffff; /* Light mode background */
-  color: #000000; /* Light mode text color */
+  font-family: "Roboto", sans-serif;
+  background-color: #ffffff;
+  color: #000000;
   transition: background-color 0.3s, color 0.3s;
-  
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -1,6 +1,5 @@
 import Layout from "@/components/layouts/Layout";
 import "@/styles/globals.css";
-import { ThemeProvider } from "@material-tailwind/react";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from '../store';
