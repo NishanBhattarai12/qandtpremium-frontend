@@ -47,7 +47,7 @@ const OurService = () => {
             alt="Advisory Service Image 1"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold">INBOUND INVESTMENT StRUCTURE</h3>
+          <h3 className="text-xl font-semibold h-14">INBOUND INVESTMENT StRUCTURE</h3>
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -57,7 +57,7 @@ const OurService = () => {
             alt="Advisory Service Image 2"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold">HOSPITALITY AND TOURISM</h3>
+          <h3 className="text-xl font-semibold h-14">HOSPITALITY AND TOURISM</h3>
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -67,7 +67,7 @@ const OurService = () => {
             alt="Advisory Service Image 3"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold">PROPERTY INVESTMENT</h3>
+          <h3 className="text-xl font-semibold h-14">PROPERTY INVESTMENT</h3>
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -77,7 +77,7 @@ const OurService = () => {
             alt="Advisory Service Image 4"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold">BUSINESS ADVICE AND CORPORATE ADVICE</h3>
+          <h3 className="text-xl font-semibold h-14">BUSINESS ADVICE AND CORPORATE ADVICE</h3>
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
       </div>
