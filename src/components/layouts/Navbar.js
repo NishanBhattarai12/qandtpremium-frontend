@@ -10,6 +10,9 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const router = useRouter();
+  const { pathname } = router;
+
+  const isActive = (path) => pathname === path ? 'text-[#64AE33]' : '';
 
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -78,25 +81,25 @@ const Navbar = () => {
         </Link>
         <div className="hidden sm:flex items-center">
           <ul className="flex space-x-10">
-            <li className="relative text-xl uppercase group">
+            <li className={`relative text-xl uppercase group ${isActive('/')}`}>
               <Link href="/" className="hover:text-[#64AE33] transition-all duration-300">Home</Link>
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
+              <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${pathname === '/' ? 'scale-x-100' : 'scale-x-0'} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
-            <li className="relative text-xl uppercase group">
+            <li className={`relative text-xl uppercase group ${isActive('/about-us')}`}>
               <Link href="/about-us" className="hover:text-[#64AE33] transition-all duration-300">About Us</Link>
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
+              <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${pathname === '/about-us' ? 'scale-x-100' : 'scale-x-0'} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
-            <li className="relative text-xl uppercase group">
+            <li className={`relative text-xl uppercase group ${isActive('/service-specialities')}`}>
               <Link href="/service-specialities" className="hover:text-[#64AE33] transition-all duration-300">Service and Specialities</Link>
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
+              <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${pathname === '/service-specialities' ? 'scale-x-100' : 'scale-x-0'} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
-            <li className="relative text-xl uppercase group">
+            <li className={`relative text-xl uppercase group ${isActive('/our-team')}`}>
               <Link href="/our-team" className="hover:text-[#64AE33] transition-all duration-300">Our Team</Link>
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
+              <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${pathname === '/our-team' ? 'scale-x-100' : 'scale-x-0'} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
-            <li className="relative text-xl uppercase group">
+            <li className={`relative text-xl uppercase group ${isActive('/contact-us')}`}>
               <Link href="/contact-us" className="hover:text-[#64AE33] transition-all duration-300">Contact Us</Link>
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-100" />
+              <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${pathname === '/contact-us' ? 'scale-x-100' : 'scale-x-0'} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
             <li style={{ marginTop: "-5px" }}>
               {user ? (
