@@ -107,7 +107,7 @@ const Navbar = () => {
                   <div>
                     <button
                       type="button"
-                      className="bg-[#64AE33] text-white py-2 px-4 rounded hover:bg-green-800 flex items-center"
+                      className="bg-[#64AE33] text-white py-2 px-4 rounded hover:bg-green-800 flex items-center transition-all"
                       id="menu-button"
                       aria-expanded={dropdownVisible}
                       aria-haspopup="true"

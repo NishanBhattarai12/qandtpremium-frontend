@@ -4,8 +4,8 @@ import React from 'react';
 const OurService = () => {
   return (
     <div>
-      <div className="bg-[#64AE33] py-12 text-center">
-        <h1 className="text-white text-4xl font-bold">OUR SERVICES</h1>
+      <div className="bg-[#64AE33] py-8 text-center">
+        <h1 className="text-white text-4xl font-bold">Our Services</h1>
       </div>
 
       <div className="flex flex-col items-center py-12 px-4">
@@ -18,7 +18,7 @@ const OurService = () => {
             />
             <h3 className="text-xl font-semibold">Tax Return</h3>
             <Link href="/tax-return">
-              <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Apply Now...</button>
+              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Apply Now...</button>
             </Link>
           </div>
 
@@ -30,13 +30,13 @@ const OurService = () => {
             />
             <h3 className="text-xl font-semibold">Flight Service</h3>
             <Link href="/search-flight">
-              <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Book Now...</button>
+              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Book Now...</button>
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="bg-[#64AE33] py-12 text-center mt-12">
+      <div className="bg-[#64AE33] py-8 text-center mt-12">
         <h2 className="text-white text-3xl font-bold">Other Advisory Service</h2>
       </div>
 
