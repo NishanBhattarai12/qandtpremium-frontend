@@ -1,17 +1,11 @@
-import {
-  FaInstagram,
-  FaDribbble,
-  FaXTwitter,
-  FaYoutube,
-} from "react-icons/fa6";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Link from "next/link";
 
 const Footer = () => {
-  const socialLinks = [
-    { label: "YouTube", icon: FaYoutube },
-    { label: "Instagram", icon: FaInstagram },
-    { label: "Twitter", icon: FaXTwitter },
-    { label: "Dribbble", icon: FaDribbble },
+  const contactLinks = [
+    { label: "Telephone", link: 'tel:+61756612616', icon: FaPhone },
+    { label: "Email", link: 'mailto:admin@qtpremium.com.au', icon: FaEnvelope },
+    { label: "Address", link: '#', icon: FaMapMarkerAlt },
   ];
 
   const links = [
@@ -45,13 +39,12 @@ const Footer = () => {
             <span>All rights reserved</span>
           </div>
           <div className="footer-icons flex space-x-3">
-            {socialLinks.map((socialLink, index) => {
+            {contactLinks.map((socialLink, index) => {
               const Icon = socialLink.icon;
               return (
-                <Icon
-                  key={`social-${index}`}
-                  className="w-12 h-12 p-2 rounded-full bg-green-700 hover:bg-white hover:text-green-700 cursor-pointer"
-                />
+                <Link href={socialLink.link} key={`contact-${index}`} passHref>
+                  <Icon className="w-6 h-6 hover:text-gray-200 transition-all rounded-full cursor-pointer" />
+                </Link>
               );
             })}
           </div>
