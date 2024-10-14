@@ -21,31 +21,31 @@ const AboutUs = ({ data, visiondata }) => {
         
       <div className="max-w-7xl mx-auto">
         <div className="p-8">
-          <h2 className="text-2xl text-gray-600 font-bold mb-4">Introduction</h2>
-          <p className="mb-4 text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
+          <h2 className="text-2xl text-center md:text-left text-gray-600 font-bold mb-4">Introduction</h2>
+          <p className="mb-4 text-center md:text-left text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
         </div>
 
-        <div className="p-8 flex">
-          <div className="w-1/6 flex flex-col">
-            <img src={data.founders[0].image} alt="Person" className="mb-4" />
-            <h3 className="text-xl font-bold">{data.founders[0].name}</h3>
-            <p className="text-gray-600 mb-2">{data.founders[0].title}</p>
-            <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
+        <div className="p-8 flex flex-col md:flex-row">
+          <div className="w-full md:w-1/6 flex flex-col items-center md:items-start">
+            <img src={data.founders[0].image} alt="Person" className="mb-4 w-32 h-32 object-cover rounded-full md:w-auto md:h-auto" />
+            <h3 className="text-xl font-bold text-center md:text-left">{data.founders[0].name}</h3>
+            <p className="text-gray-600 mb-2 text-center md:text-left">{data.founders[0].title}</p>
+            <p className="text-gray-600 text-center md:text-left" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
           </div>
-          <div className="w-5/6 pl-8">
-            <p className="text-gray-600 mb-4 contents" dangerouslySetInnerHTML={{ __html: data.founders[0].long_description}}></p>
+          <div className="w-full md:w-5/6 mt-4 md:mt-0 md:pl-8">
+            <p className="text-gray-600 text-center md:text-left mb-4" dangerouslySetInnerHTML={{ __html: data.founders[0].long_description }}></p>
           </div>
         </div>
 
-        <div className="p-8 flex">
-          <div className="w-5/6">
-            <p className="text-gray-600 mb-4 contents" dangerouslySetInnerHTML={{ __html: data.founders[1].long_description}}></p>
+        <div className="p-8 flex flex-col-reverse md:flex-row">
+          <div className="w-full md:w-5/6 mt-4 md:mt-0">
+            <p className="text-gray-600 text-center md:text-left mb-4 contents" dangerouslySetInnerHTML={{ __html: data.founders[1].long_description }}></p>
           </div>
-          <div className="w-1/6 flex flex-col pl-8">
-            <img src={data.founders[1].image} alt="Person" className="mb-4" />
-            <h3 className="text-xl font-bold">{data.founders[1].name}</h3>
-            <p className="text-gray-600 mb-2">{data.founders[1].title}</p>
-            <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
+          <div className="w-full md:w-1/6 pl-0 md:pl-8 flex flex-col items-center md:items-start">
+            <img src={data.founders[1].image} alt="Person" className="mb-4 w-32 h-32 object-cover rounded-full md:w-auto md:h-auto" />
+            <h3 className="text-xl font-bold text-center md:text-left">{data.founders[1].name}</h3>
+            <p className="text-gray-600 mb-2 text-center md:text-left">{data.founders[1].title}</p>
+            <p className="text-gray-600 text-center md:text-left" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
           </div>
         </div>
 
