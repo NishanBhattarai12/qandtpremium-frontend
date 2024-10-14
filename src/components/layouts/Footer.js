@@ -34,10 +34,10 @@ const Footer = () => {
 
   return (
     <div className="bg-[#64AE33] text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+      <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
         <div className="flex flex-col items-start space-y-4">
           <div className="footer-img flex items-center">
-            <img src="./logos.svg" alt="footerlogo" className="w-full h-auto bg-white" />
+            <img src="./logos.svg" alt="footerlogo" className="w-96 h-auto bg-white" />
           </div>
           <div className="infos text-white text-sm">
             <span>Copyright © 2024 Q and T premium</span>
@@ -68,14 +68,6 @@ const Footer = () => {
               ))}
             </ul>
           ))}
-        </div>
-        <div className="flex flex-col items-start space-y-4">
-          <label className="text-lg font-semibold">Stay up to date</label>
-          <input
-            type="email"
-            placeholder="Subscribe to our email"
-            className="w-full border-none rounded-lg py-3 px-4"
-          />
         </div>
       </div>
     </div>
