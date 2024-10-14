@@ -4,6 +4,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import Link from "next/link";
 
 const Footer = () => {
   const socialLinks = [
@@ -16,11 +17,11 @@ const Footer = () => {
   const links = [
     [
       { label: "Company", key: "header-1" },
-      { label: "About us", key: "item-1-1" },
-      { label: "Our Services", key: "item-1-2" },
-      { label: "Service and Specilaities", key: "item-1-3" },
-      { label: "Our Team", key: "item-1-4" },
-      { label: "Contact Us", key: "item-1-5" },
+      { label: "Home", link: '/', key: "item-1-0" },
+      { label: "About us", link: '/about-us', key: "item-1-1" },
+      { label: "Service and Specilaities", link: '/service-specialities', key: "item-1-2" },
+      { label: "Our Team", link: '/our-team', key: "item-1-3" },
+      { label: "Contact Us", link: '/contact-us', key: "item-1-4" },
     ],
     [
       { label: "Support", key: "header-2" },
@@ -61,9 +62,13 @@ const Footer = () => {
               {col.map((link) => (
                 <li
                   key={link.key}
-                  className={`cursor-pointer ${link.key.startsWith('header') ? 'text-2xl' : 'text-base'}`}
+                  className={`cursor-pointer ${link.key.startsWith('header') ? 'text-2xl' : 'text-base transition-all hover:text-gray-200'}`}
                 >
-                  {link.label}
+                  {link.link ? (
+                    <Link href={link.link}>{link.label}</Link>
+                  ) : (
+                    <span>{link.label}</span>
+                  )}
                 </li>
               ))}
             </ul>
