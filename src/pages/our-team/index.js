@@ -70,10 +70,12 @@ const OurTeam = ({ data, visiondata }) => {
               <button className="absolute top-2 right-2 text-4xl text-gray-600" onClick={handleClosePopup}>
                 &times;
               </button>
-              <img src={selectedTeam.image} alt={selectedTeam.name} className="w-64 h-auto rounded-lg mb-4" />
-              <h3 className="text-xl font-bold mb-2">{selectedTeam.name}</h3>
-              <p className="text-gray-600 mb-2">{selectedTeam.title}</p>
-              <p className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: selectedTeam.short_description }}></p>
+              <div className="flex items-center justify-center">
+                <img src={selectedTeam.image} alt={selectedTeam.name} className="w-64 h-auto rounded-lg mb-4" />
+              </div>
+              <h3 className="text-xl text-center font-bold mb-2">{selectedTeam.name}</h3>
+              <p className="text-gray-600 text-center mb-2">{selectedTeam.title}</p>
+              <p className="text-gray-600 text-center mb-6" dangerouslySetInnerHTML={{ __html: selectedTeam.short_description }}></p>
               <p className="contents text-gray-600" dangerouslySetInnerHTML={{ __html: selectedTeam.long_description }}></p>
             </div>
           </div>
