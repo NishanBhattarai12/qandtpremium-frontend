@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 const AboutUs = ({ data, visiondata }) => {
   data = data[0];
   visiondata = visiondata[0];
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded2, setIsExpanded2] = useState(false);
+  const words = data.founders[0].long_description.split(' ');
+  const words2 = data.founders[1].long_description.split(' ');
+  const truncatedText = words.slice(0, 100).join(' ');
+  const truncatedText2 = words2.slice(0, 100).join(' ');
+
+  const toggleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const toggleReadMore2 = () => {
+    setIsExpanded2(!isExpanded2);
+  }
 
   return (
     <>
@@ -20,36 +35,60 @@ const AboutUs = ({ data, visiondata }) => {
       </div>
         
       <div className="max-w-7xl mx-auto">
-        <div className="p-8">
-          <h2 className="text-2xl text-center md:text-left text-gray-600 font-bold mb-4">Introduction</h2>
-          <p className="mb-4 text-center md:text-left text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
+        <div className="px-8 pt-12">
+          <h2 className="text-2xl text-center text-gray-600 font-bold mb-4">Introduction</h2>
+          <p className="mb-4 text-center text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
         </div>
 
-        <div className="p-8 flex flex-col md:flex-row">
-          <div className="w-full md:w-1/6 flex flex-col items-center md:items-start">
-            <img src={data.founders[0].image} alt="Person" className="mb-4 w-32 h-32 object-cover rounded-full md:w-auto md:h-auto" />
-            <h3 className="text-xl font-bold text-center md:text-left">{data.founders[0].name}</h3>
-            <p className="text-gray-600 mb-2 text-center md:text-left">{data.founders[0].title}</p>
-            <p className="text-gray-600 text-center md:text-left" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
+        <div className="px-8 pt-8">
+          <div className="w-full flex flex-col items-center justify-center">
+            <img src={data.founders[0].image} alt="Person" className="mb-4 w-48 h-48 object-cover rounded-full" />
+            <h3 className="text-xl font-bold text-center">{data.founders[0].name}</h3>
+            <p className="text-gray-600 mb-2 text-center">{data.founders[0].title}</p>
+            <p className="text-gray-600 text-center" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
           </div>
-          <div className="w-full md:w-5/6 mt-4 md:mt-0 md:pl-8">
-            <p className="text-gray-600 text-center md:text-left mb-4" dangerouslySetInnerHTML={{ __html: data.founders[0].long_description }}></p>
+          <div className="w-full mt-4">
+            <p className="text-gray-600 text-center mb-2">
+              <span dangerouslySetInnerHTML={{ __html: isExpanded ? data.founders[0].long_description : truncatedText + '...' }}></span>
+              <a
+                href="#"
+                className="text-blue-500 hover:underline ml-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleReadMore();
+                }}
+              >
+                {isExpanded ? 'Read Less' : 'Read More'}
+              </a>
+            </p>
           </div>
         </div>
 
-        <div className="p-8 flex flex-col-reverse md:flex-row">
-          <div className="w-full md:w-5/6 mt-4 md:mt-0">
-            <p className="text-gray-600 text-center md:text-left mb-4 contents" dangerouslySetInnerHTML={{ __html: data.founders[1].long_description }}></p>
+        <div className="px-8 pt-12 flex flex-col-reverse">
+          <div className="w-full mt-4">
+            <p className="text-gray-600 text-center mb-2">
+              <span dangerouslySetInnerHTML={{ __html: isExpanded2 ? data.founders[1].long_description : truncatedText2 + '...' }}></span>
+              <a
+                href="#"
+                className="text-blue-500 hover:underline ml-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleReadMore2();
+                }}
+              >
+                {isExpanded2 ? 'Read Less' : 'Read More'}
+              </a>
+            </p>
           </div>
-          <div className="w-full md:w-1/6 pl-0 md:pl-8 flex flex-col items-center md:items-start">
-            <img src={data.founders[1].image} alt="Person" className="mb-4 w-32 h-32 object-cover rounded-full md:w-auto md:h-auto" />
-            <h3 className="text-xl font-bold text-center md:text-left">{data.founders[1].name}</h3>
-            <p className="text-gray-600 mb-2 text-center md:text-left">{data.founders[1].title}</p>
-            <p className="text-gray-600 text-center md:text-left" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
+          <div className="w-full flex flex-col items-center justify-center">
+            <img src={data.founders[1].image} alt="Person" className="mb-4 w-48 h-48 object-cover rounded-full" />
+            <h3 className="text-xl font-bold text-center">{data.founders[1].name}</h3>
+            <p className="text-gray-600 mb-2 text-center">{data.founders[1].title}</p>
+            <p className="text-gray-600 text-center" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
           </div>
         </div>
 
-        <div className="p-8 max-w-[900px] mb-6 mx-auto">
+        <div style={{ marginTop: "60px" }} className="px-8 max-w-[900px] mb-6 mx-auto">
           <h2 className="text-2xl text-[#3466ad] text-center text-gray-600 font-bold mb-6">{visiondata.introduction}</h2>
           <div className="grid mt-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {visiondata.visions.map((item, index) => (
