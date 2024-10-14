@@ -4,54 +4,46 @@ import React from 'react';
 const OurService = () => {
   return (
     <div>
-      {/* Green Banner */}
       <div className="bg-[#64AE33] py-12 text-center">
         <h1 className="text-white text-4xl font-bold">OUR SERVICES</h1>
       </div>
 
-      {/* Centered Images with Two Buttons Below Each */}
-      <div className="flex flex-col items-center py-12"> {/* Added extra padding top and bottom */}
-        <div className="flex space-x-8"> {/* Increased space between images */}
-          {/* First Image with Buttons */}
-          <div className="flex flex-col items-center space-y-4"> {/* Added space between image and buttons */}
+      <div className="flex flex-col items-center py-12 px-4">
+        <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
+          <div className="flex flex-col items-center space-y-4">
             <img
-              src="/Tax-Returns.jpg" // Replace with your image paths
+              src="/Tax-Returns.jpg"
               alt="Service Image 1"
-              className="w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
+              className="w-full md:w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
             />
-                <h3 className="text-xl font-semibold">Tax Return</h3>
-                <Link href="/tax-return">
+            <h3 className="text-xl font-semibold">Tax Return</h3>
+            <Link href="/tax-return">
               <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Apply Now...</button>
-              </Link>
+            </Link>
           </div>
 
-          {/* Second Image with Buttons */}
-          <div className="flex flex-col items-center space-y-4"> {/* Added space between image and buttons */}
+          <div className="flex flex-col items-center space-y-4">
             <img
-              src="/Tourism.jpg" // Replace with your image paths
+              src="/Tourism.jpg"
               alt="Service Image 2"
-              className="w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
+              className="w-full md:w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
             />
-            
             <h3 className="text-xl font-semibold">Flight Service</h3>
-            <Link href='/search-flight'>
+            <Link href="/search-flight">
               <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Book Now...</button>
-              </Link>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Green Banner for Our Advisory Service */}
-      <div className="bg-[#64AE33] py-12 text-center mt-12"> {/* Added margin-top for space */}
+      <div className="bg-[#64AE33] py-12 text-center mt-12">
         <h2 className="text-white text-3xl font-bold">Other Advisory Service</h2>
       </div>
 
-      {/* Advisory Service Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-8 py-12"> {/* Increased gap between columns */}
-        {/* First Advisory Image and Details */}
-        <div className="text-center space-y-4"> {/* Added space between image, heading, and button */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-8 py-12">
+        <div className="text-center space-y-4">
           <img
-            src="/property.jpg" // Replace with your image paths
+            src="/property.jpg"
             alt="Advisory Service Image 1"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
@@ -59,10 +51,9 @@ const OurService = () => {
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
-        {/* Second Advisory Image and Details */}
-        <div className="text-center space-y-4"> {/* Added space between image, heading, and button */}
+        <div className="text-center space-y-4">
           <img
-            src="/travel.jpg" // Replace with your image paths
+            src="/travel.jpg"
             alt="Advisory Service Image 2"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
@@ -70,10 +61,9 @@ const OurService = () => {
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
-        {/* Third Advisory Image and Details */}
-        <div className="text-center space-y-4"> {/* Added space between image, heading, and button */}
+        <div className="text-center space-y-4">
           <img
-            src="/investment.jpg" // Replace with your image paths
+            src="/investment.jpg"
             alt="Advisory Service Image 3"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
@@ -81,10 +71,9 @@ const OurService = () => {
           <button className="bg-[#64AE33] text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
-        {/* Fourth Advisory Image and Details */}
-        <div className="text-center space-y-4"> {/* Added space between image, heading, and button */}
+        <div className="text-center space-y-4">
           <img
-            src="/target.jpg" // Replace with your image paths
+            src="/target.jpg"
             alt="Advisory Service Image 4"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
