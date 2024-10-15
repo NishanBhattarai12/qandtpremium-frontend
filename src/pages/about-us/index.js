@@ -25,7 +25,7 @@ const AboutUs = ({ data, visiondata }) => {
       <div className="relative h-[50vh] bg-cover bg-center" style={{ backgroundImage: `url(${data.background_image})` }}>
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-[50vh] p-8">
-          <h1 className="text-4xl font-bold text-white mb-4">About Us</h1>
+          <h1 className="text-4xl font-bold text-white mb-4">{data.title}</h1>
           <nav className="text-white mb-4">
             <Link className="hover:underline" href="/">
               Home
