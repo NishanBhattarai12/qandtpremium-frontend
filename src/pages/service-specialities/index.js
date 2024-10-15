@@ -35,13 +35,13 @@ const ServiceAndSpecialities = ({ data, visiondata }) => {
                     </div>
                     <div className="w-full md:w-[70%] flex flex-col">
                         <h3 className="text-xl font-bold mb-2">
-                            <Link href='#' className="text-gray-700">
+                            <Link href={`service-specialities/${service.slug}`} className="text-gray-700">
                                 {service.name}
                             </Link>
                         </h3>
                         <p className="text-gray-600 mb-2" dangerouslySetInnerHTML={{ __html: service.long_description.length > 300 ? `${service.long_description.slice(0, 300)}...` : service.long_description }}>
                         </p>
-                        <Link href='#' className="text-[#64AE33] hover:underline">
+                        <Link href={`service-specialities/${service.slug}`} className="text-[#64AE33] hover:underline">
                             Learn more
                         </Link>
                     </div>
