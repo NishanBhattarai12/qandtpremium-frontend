@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 import { setTokens } from '@/store/authSlice';
-import { FaUser, FaPlane, FaFileAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaUser, FaPlane, FaCalendarAlt, FaEnvelope, FaComment, FaCheckCircle, FaExclamationCircle, FaHourglassHalf, FaTimesCircle, FaCreditCard, FaMapMarkerAlt, FaBriefcase, FaIdCard, FaEye, FaUpload, FaFileAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Dashboard = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -15,6 +15,11 @@ const Dashboard = () => {
   const [flightsData, setFlightsData] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [file, setFile] = useState(null);
+  const [currentTaxReturnId, setCurrentTaxReturnId] = useState(null);
 
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
@@ -29,6 +34,26 @@ const Dashboard = () => {
     password: '',
     confirmPassword: ''
   });
+
+  const fetchTaxReturnsData = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/user-tax-return-requests`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch tax returns data');
+      }
+
+      const taxReturnsData = await response.json();
+      setTaxReturnsData(taxReturnsData);
+    } catch (error) {
+      console.error('An error occurred while fetching flights data:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -88,13 +113,98 @@ const Dashboard = () => {
     }
   };
 
-  const taxReturnsData = [
-    { year: "2022", status: "Submitted", refundAmount: 1500 },
-    { year: "2021", status: "Processed", refundAmount: 2200 },
-    { year: "2020", status: "Processed", refundAmount: 1800 },
-    { year: "2019", status: "Processed", refundAmount: 2000 },
-    { year: "2018", status: "Processed", refundAmount: 1700 }
-  ];
+  const [taxReturnsData, setTaxReturnsData] = useState([]);
+
+  const handleEntryClick = (entry) => {
+    setSelectedEntry(entry);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedEntry(null);
+  };
+
+  const handleOpenUploadModal = (tax_return_id) => {
+    setCurrentTaxReturnId(tax_return_id)
+    setIsUploadModalOpen(true);
+  };
+
+  const handleCloseUploadModal = () => {
+    setIsUploadModalOpen(false);
+    setFile(null);
+    setCurrentTaxReturnId(null);
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+  
+    const fileFormData = new FormData();
+    fileFormData.append('file', file);
+  
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/files/file-upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: fileFormData
+      });
+  
+      const data = await response.json();
+      setFile(data.fileid);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
+  const handleFileSubmit = async (e) => {
+    console.log(currentTaxReturnId);
+    e.preventDefault();
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append('file_id', file);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/update-tax-return-file/${currentTaxReturnId}`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          body: formData
+        });
+    
+        const data = await response.json();
+        setSuccessMessage('File uploaded successfully');
+        fetchTaxReturnsData();
+        handleCloseUploadModal();
+      } catch (error) {
+        setErrorMessage('File upload failed');
+        console.error('Error uploading file:', error);
+      }
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "completed":
+        return <FaCheckCircle className="text-green-500" />;
+      case "in_progress":
+        return <FaHourglassHalf className="text-yellow-500" />;
+      case "pending":
+        return <FaExclamationCircle className="text-orange-500" />;
+      case "invalid_file":
+        return <FaTimesCircle className="text-red-500" />;
+      case "new_file_uploaded":
+        return <FaUpload className="text-blue-500" />;
+      default:
+        return null;
+    }
+  }
+
+  const getStatusText = (status) => {
+    return status
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  };
 
   const renderPagination = (totalItems) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -143,6 +253,7 @@ const Dashboard = () => {
     };
 
     fetchFlightsData();
+    fetchTaxReturnsData();
   }, []);
 
   useEffect(() => {
@@ -323,17 +434,118 @@ const Dashboard = () => {
         const taxStartIndex = (currentPage - 1) * itemsPerPage;
         const paginatedTaxReturns = taxReturnsData.slice(taxStartIndex, taxStartIndex + itemsPerPage);
         return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">My Tax Returns</h2>
-            {paginatedTaxReturns.map((taxReturn, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow">
-                <p className="font-semibold">{taxReturn.year} Tax Return</p>
-                <p>Status: {taxReturn.status}</p>
-                <p>Refund Amount: ${taxReturn.refundAmount}</p>
+          <>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">My Tax Returns</h2>
+              {paginatedTaxReturns.map((entry, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
+                  role="article"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <h2 className="text-xl font-semibold">{`${entry.first_name} ${entry.last_name}`}</h2>
+                    <div className="flex items-center">
+                      {getStatusIcon(entry.status)}
+                      <span className="ml-2 text-sm font-medium">{getStatusText(entry.status)}</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-2 flex items-center"><FaCalendarAlt className="mr-2" /><span className="font-medium">Date of Birth:</span> {entry.dob}</p>
+                  <p className="text-gray-600 mb-2 flex items-center"><FaMapMarkerAlt className="mr-2" /><span className="font-medium">Address:</span> {entry.address}</p>
+                  <p className="text-gray-600 mb-2 flex items-center"><FaIdCard className="mr-2" /><span className="font-medium">Tax Number:</span> {entry.tax_number}</p>
+                  <p className="text-gray-600 mb-2 flex items-center"><FaBriefcase className="mr-2" /><span className="font-medium">Job Title:</span> {entry.job_title}</p>
+                  <p className="text-gray-600 mb-4 flex items-center"><FaCreditCard className="mr-2" /><span className="font-medium">Payment ID:</span> {entry.payment_id}</p>
+                  <div className="flex justify-between items-center">
+                    <button
+                      onClick={() => handleEntryClick(entry)}
+                      className="bg-[#33AE64] hover:bg-[#299755] text-white px-4 py-2 rounded transition-colors duration-300 flex items-center"
+                      aria-label="View details"
+                    >
+                      <FaEye className="mr-2" /> View Details
+                    </button>
+                    {entry.status === 'invalid_file' && (
+                      <button
+                        onClick={() => handleOpenUploadModal(entry.id)}
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center"
+                        aria-label="Upload new file"
+                      >
+                        <FaUpload className="mr-2" /> Upload New File
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {renderPagination(taxReturnsData.length)}
+            </div>
+            {selectedEntry && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" onClick={handleCloseModal}>
+                <div className="bg-white rounded-lg p-6 max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
+                  <h2 className="text-2xl font-bold mb-4 flex items-center"><FaIdCard className="mr-2" /> Detailed Information</h2>
+                  <p className="mb-2 flex items-center"><FaIdCard className="mr-2" /><span className="font-medium">Name:</span> {`${selectedEntry.first_name} ${selectedEntry.last_name}`}</p>
+                  <p className="mb-2 flex items-center"><FaCalendarAlt className="mr-2" /><span className="font-medium">Date of Birth:</span> {selectedEntry.dob}</p>
+                  <p className="mb-2 flex items-center"><FaMapMarkerAlt className="mr-2" /><span className="font-medium">Address:</span> {selectedEntry.address}</p>
+                  <p className="mb-2 flex items-center"><FaIdCard className="mr-2" /><span className="font-medium">Tax Number:</span> {selectedEntry.tax_number}</p>
+                  <p className="mb-2 flex items-center"><FaBriefcase className="mr-2" /><span className="font-medium">Job Title:</span> {selectedEntry.job_title}</p>
+                  <p className="mb-2 flex items-center"><FaEnvelope className="mr-2" /><span className="font-medium">Message:</span> {selectedEntry.message}</p>
+                  <p className="mb-2 flex items-center"><FaFileAlt className="mr-2" /><span className="font-medium">File Url:</span> <a className="hover:underline text-blue-800" target="_blank" href={selectedEntry.file['filepath']}>Link</a></p>
+                  <p className="mb-2 flex items-center"><FaCreditCard className="mr-2" /><span className="font-medium">Payment ID:</span> {selectedEntry.payment_id}</p>
+                  <p className="mb-2 flex items-center"><FaComment className="mr-2" /><span className="font-medium">Remarks:</span> {selectedEntry.remarks ? selectedEntry.remarks : '-'}</p>
+                  <p className="mb-4 flex items-center">
+                    {getStatusIcon(selectedEntry.status)}
+                    <span className="ml-2 font-medium">Status:</span> {getStatusText(selectedEntry.status)}
+                  </p>
+                  <button
+                    onClick={handleCloseModal}
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
-            ))}
-            {renderPagination(taxReturnsData.length)}
-          </div>
+            )}
+            {isUploadModalOpen && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" onClick={handleCloseUploadModal}>
+                <div className="bg-white rounded-lg p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+                  <h2 className="text-2xl font-bold mb-4 flex items-center"><FaUpload className="mr-2" /> Upload New File</h2>
+                  <form onSubmit={handleFileSubmit} className="space-y-4">
+                    <div>
+                      <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <FaFileAlt className="mr-2" /> Choose a file
+                      </label>
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        className="block w-full text-sm text-gray-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-blue-50 file:text-blue-700
+                          hover:file:bg-blue-100"
+                        onChange={handleFileChange}
+                      />
+                    </div>
+                    <div className="flex justify-end space-x-2">
+                      <button
+                        type="button"
+                        onClick={handleCloseUploadModal}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors duration-300 flex items-center"
+                      >
+                        <FaEye className="mr-2" /> Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center"
+                        disabled={!file}
+                      >
+                        <FaUpload className="mr-2" /> Upload
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </>
         );
       default:
         return (
