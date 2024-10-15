@@ -94,7 +94,7 @@ const AboutUs = ({ data, visiondata }) => {
             {visiondata.visions.map((item, index) => (
               <Link className="flex flex-col items-center text-center" key={index} href='#'>
                 <img src={item.icon} alt={item.title} className="w-16 h-16 mb-4" />
-                <h3 className="text-xl font-bold text-gray-600">{item.title}</h3>
+                <h3 className="text-xl font-bold transition-all text-gray-600 hover:text-gray-800">{item.title}</h3>
               </Link>
             ))}
           </div>
