@@ -43,7 +43,7 @@ const ServiceAndSpecialitiesDynamic = () => {
             <div className="p-8 max-w-[900px] mb-6 mx-auto">
                 <h2 className="text-2xl text-[#3466ad] text-center text-gray-600 font-bold mb-6">{serviceData.name}</h2>
 
-                <p className="text-center" dangerouslySetInnerHTML={{ __html: serviceData.long_description }}></p>
+                <p className="text-center text-gray-600" dangerouslySetInnerHTML={{ __html: serviceData.long_description }}></p>
             </div>
         </>
     )
