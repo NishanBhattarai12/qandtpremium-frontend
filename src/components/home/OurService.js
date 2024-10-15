@@ -1,7 +1,25 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const OurService = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/ourservices/contents`);
+      const result = await response.json();
+      setData(result[0]);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="bg-[#64AE33] py-8 text-center">
@@ -40,45 +58,21 @@ const OurService = () => {
         <h2 className="text-white text-3xl font-bold">Other Advisory Service</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-8 py-12">
-        <div className="text-center space-y-4">
-          <img
-            src="/property.jpg"
-            alt="Advisory Service Image 1"
-            className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
-          />
-          <h3 className="text-xl font-semibold h-14 text-gray-800">INBOUND INVESTMENT StRUCTURE</h3>
-          <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
-        </div>
-
-        <div className="text-center space-y-4">
-          <img
-            src="/travel.jpg"
-            alt="Advisory Service Image 2"
-            className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
-          />
-          <h3 className="text-xl font-semibold h-14 text-gray-800">HOSPITALITY AND TOURISM</h3>
-          <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
-        </div>
-
-        <div className="text-center space-y-4">
-          <img
-            src="/investment.jpg"
-            alt="Advisory Service Image 3"
-            className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
-          />
-          <h3 className="text-xl font-semibold h-14 text-gray-800">PROPERTY INVESTMENT</h3>
-          <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
-        </div>
-
-        <div className="text-center space-y-4">
-          <img
-            src="/target.jpg"
-            alt="Advisory Service Image 4"
-            className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
-          />
-          <h3 className="text-xl font-semibold h-14 text-gray-800">BUSINESS ADVICE AND CORPORATE ADVICE</h3>
-          <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12">
+          {data.services.map((service, index) => (
+            <div key={index} className="text-center space-y-4">
+              <img
+                src={service.image}
+                alt={`Advisory Service Image ${index + 1}`}
+                className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
+              />
+              <h3 className="text-xl font-semibold h-14 text-gray-800">{service.name}</h3>
+              <Link className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded" href={`/service-specialities/${service.slug}`}>
+                Read More...
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
