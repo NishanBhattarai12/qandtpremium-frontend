@@ -271,8 +271,8 @@ const Dashboard = () => {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl text-gray-700 font-bold">My Profile</h2>
-            <p className="text-gray-600">Name: {user.name}</p>
-            <p className="text-gray-600">Email: {user.email}</p>
+            <p className="text-gray-600">Name: {user?.name}</p>
+            <p className="text-gray-600">Email: {user?.email}</p>
             <button
               className="bg-[#33AE64] hover:bg-[#299755] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center space-x-2"
               onClick={() => {
