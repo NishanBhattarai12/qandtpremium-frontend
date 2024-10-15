@@ -16,9 +16,9 @@ const OurService = () => {
               alt="Service Image 1"
               className="w-full md:w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
             />
-            <h3 className="text-xl font-semibold">Tax Return</h3>
+            <h3 className="text-xl font-semibold text-gray-700">Tax Return</h3>
             <Link href="/tax-return">
-              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Apply Now...</button>
+              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Apply Now</button>
             </Link>
           </div>
 
@@ -28,9 +28,9 @@ const OurService = () => {
               alt="Service Image 2"
               className="w-full md:w-[300px] h-[300px] object-cover shadow-lg transition-transform duration-300 transform hover:scale-105"
             />
-            <h3 className="text-xl font-semibold">Flight Service</h3>
+            <h3 className="text-xl font-semibold text-gray-700">Flight Service</h3>
             <Link href="/search-flight">
-              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Book Now...</button>
+              <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Book Now</button>
             </Link>
           </div>
         </div>
@@ -47,7 +47,7 @@ const OurService = () => {
             alt="Advisory Service Image 1"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold h-14">INBOUND INVESTMENT StRUCTURE</h3>
+          <h3 className="text-xl font-semibold h-14 text-gray-800">INBOUND INVESTMENT StRUCTURE</h3>
           <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -57,7 +57,7 @@ const OurService = () => {
             alt="Advisory Service Image 2"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold h-14">HOSPITALITY AND TOURISM</h3>
+          <h3 className="text-xl font-semibold h-14 text-gray-800">HOSPITALITY AND TOURISM</h3>
           <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -67,7 +67,7 @@ const OurService = () => {
             alt="Advisory Service Image 3"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold h-14">PROPERTY INVESTMENT</h3>
+          <h3 className="text-xl font-semibold h-14 text-gray-800">PROPERTY INVESTMENT</h3>
           <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
         </div>
 
@@ -77,7 +77,7 @@ const OurService = () => {
             alt="Advisory Service Image 4"
             className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
           />
-          <h3 className="text-xl font-semibold h-14">BUSINESS ADVICE AND CORPORATE ADVICE</h3>
+          <h3 className="text-xl font-semibold h-14 text-gray-800">BUSINESS ADVICE AND CORPORATE ADVICE</h3>
           <button className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded">Read More...</button>
         </div>
       </div>

@@ -33,7 +33,7 @@ const OurTeam = ({ data, visiondata }) => {
         <div className="max-w-7xl mx-auto">
             {data.introduction && (
                 <div className="p-8">
-                    <h2 className="text-2xl text-gray-600 font-bold mb-4">Introduction</h2>
+                    <h2 className="text-2xl text-gray-700 font-bold mb-4">Introduction</h2>
                     <p className="mb-4 text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
                 </div>
             )}
@@ -43,7 +43,7 @@ const OurTeam = ({ data, visiondata }) => {
                 {data.teams.map((team, index) => (
                   <div key={index} className="p-4 border rounded-lg shadow-md cursor-pointer" onClick={() => handleTeamClick(team)}>
                     <img src={team.image} alt={team.name} className="w-full h-auto rounded-lg mb-4" />
-                    <h3 className="text-xl font-bold mb-2">{team.name}</h3>
+                    <h3 className="text-xl text-gray-700 font-bold mb-2">{team.name}</h3>
                     <p className="text-gray-600 mb-2">{team.title}</p>
                     <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: team.short_description }}></p>
                   </div>
@@ -73,7 +73,7 @@ const OurTeam = ({ data, visiondata }) => {
               <div className="flex items-center justify-center">
                 <img src={selectedTeam.image} alt={selectedTeam.name} className="w-64 h-auto rounded-lg mb-4" />
               </div>
-              <h3 className="text-xl text-center font-bold mb-2">{selectedTeam.name}</h3>
+              <h3 className="text-xl text-center text-gray-700 font-bold mb-2">{selectedTeam.name}</h3>
               <p className="text-gray-600 text-center mb-2">{selectedTeam.title}</p>
               <p className="text-gray-600 text-center mb-6" dangerouslySetInnerHTML={{ __html: selectedTeam.short_description }}></p>
               <p className="contents text-gray-600" dangerouslySetInnerHTML={{ __html: selectedTeam.long_description }}></p>

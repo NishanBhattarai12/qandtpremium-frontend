@@ -36,14 +36,14 @@ const AboutUs = ({ data, visiondata }) => {
         
       <div className="max-w-7xl mx-auto">
         <div className="px-8 pt-12">
-          <h2 className="text-2xl text-center text-gray-600 font-bold mb-4">Introduction</h2>
+          <h2 className="text-2xl text-center text-gray-700 font-bold mb-4">Introduction</h2>
           <p className="mb-4 text-center text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
         </div>
 
         <div className="px-8 pt-8">
           <div className="w-full flex flex-col items-center justify-center">
             <img src={data.founders[0].image} alt="Person" className="mb-4 w-48 h-48 object-cover rounded-full" />
-            <h3 className="text-xl font-bold text-center">{data.founders[0].name}</h3>
+            <h3 className="text-xl text-gray-700 font-bold text-center">{data.founders[0].name}</h3>
             <p className="text-gray-600 mb-2 text-center">{data.founders[0].title}</p>
             <p className="text-gray-600 text-center" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
           </div>
@@ -52,7 +52,7 @@ const AboutUs = ({ data, visiondata }) => {
               <span dangerouslySetInnerHTML={{ __html: isExpanded ? data.founders[0].long_description : truncatedText + '...' }}></span>
               <a
                 href="#"
-                className="text-blue-500 hover:underline ml-1"
+                className="text-[#64AE33] hover:underline ml-1"
                 onClick={(e) => {
                   e.preventDefault();
                   toggleReadMore();
@@ -70,7 +70,7 @@ const AboutUs = ({ data, visiondata }) => {
               <span dangerouslySetInnerHTML={{ __html: isExpanded2 ? data.founders[1].long_description : truncatedText2 + '...' }}></span>
               <a
                 href="#"
-                className="text-blue-500 hover:underline ml-1"
+                className="text-[#64AE33] hover:underline ml-1"
                 onClick={(e) => {
                   e.preventDefault();
                   toggleReadMore2();

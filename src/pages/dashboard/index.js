@@ -159,9 +159,9 @@ const Dashboard = () => {
       case "profile":
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">My Profile</h2>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
+            <h2 className="text-2xl text-gray-700 font-bold">My Profile</h2>
+            <p className="text-gray-600">Name: {user.name}</p>
+            <p className="text-gray-600">Email: {user.email}</p>
             <button
               className="bg-[#33AE64] hover:bg-[#299755] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center space-x-2"
               onClick={() => {
@@ -176,14 +176,14 @@ const Dashboard = () => {
         case "change-profile-details":
           return (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Change Profile Details</h2>
+              <h2 className="text-2xl text-gray-700 font-bold">Change Profile Details</h2>
               <form onSubmit={handleProfileUpdate}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                  <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="name">
                     Name
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
                     type="text"
                     placeholder="Your name"
@@ -193,11 +193,11 @@ const Dashboard = () => {
                   {nameError && <p className="text-red-500 mt-2">{nameError}</p>}
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                  <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="email">
                     Email
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
                     type="email"
                     placeholder="Your email"
@@ -206,11 +206,11 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                  <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="password">
                     New Password
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
                     type="password"
                     placeholder="New password"
@@ -219,11 +219,11 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
+                  <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="confirmPassword">
                     Confirm Password
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                     id="confirmPassword"
                     type="password"
                     placeholder="Confirm password"
@@ -260,13 +260,13 @@ const Dashboard = () => {
         const paginatedFlights = flightsData.slice(startIndex, startIndex + itemsPerPage);
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">My Flights Booking</h2>
+            <h2 className="text-2xl text-gray-700 font-bold">My Flights Booking</h2>
             {paginatedFlights.map((flight, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow">
                 <div className="flex flex-col space-y-3">
                   <div className="flex items-center justify-between flex-wrap">
                     <img src={flight.logo_url} alt={flight.airline} className="h-8 mb-2 sm:mb-0" />
-                    <span className="text-lg font-semibold mb-2 sm:mb-0">{flight.airline}</span>
+                    <span className="text-lg text-gray-700 font-semibold mb-2 sm:mb-0">{flight.airline}</span>
                     <span className={`px-2 py-1 rounded-full text-sm ${flight.status === "pending" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}`}>
                       {flight.status.charAt(0).toUpperCase() + flight.status.slice(1)}
                     </span>
@@ -274,38 +274,38 @@ const Dashboard = () => {
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="mb-2 sm:mb-0">
                       <p className="text-sm text-gray-500">From</p>
-                      <p className="font-medium">{flight.departure_location}</p>
+                      <p className="font-medium text-gray-600">{flight.departure_location}</p>
                     </div>
                     <FaPlane className="text-blue-500 my-2 sm:my-0 transform rotate-90 sm:rotate-0" />
                     <div>
                       <p className="text-sm text-gray-500">To</p>
-                      <p className="font-medium">{flight.arrival_location}</p>
+                      <p className="font-medium text-gray-600">{flight.arrival_location}</p>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="mb-2 sm:mb-0">
                       <p className="text-sm text-gray-500">Departure</p>
-                      <p className="font-medium">{new Date(flight.departure_time).toLocaleString()}</p>
+                      <p className="font-medium text-gray-600">{new Date(flight.departure_time).toLocaleString()}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Arrival</p>
-                      <p className="font-medium">{new Date(flight.arrival_time).toLocaleString()}</p>
+                      <p className="font-medium text-gray-600">{new Date(flight.arrival_time).toLocaleString()}</p>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="mb-2 sm:mb-0">
                       <p className="text-sm text-gray-500">Flight</p>
-                      <p className="font-medium">{flight.flight_number}</p>
+                      <p className="font-medium text-gray-600">{flight.flight_number}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Aircraft</p>
-                      <p className="font-medium">{flight.airplane_name}</p>
+                      <p className="font-medium text-gray-600">{flight.airplane_name}</p>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="mb-2 sm:mb-0">
                       <p className="text-sm text-gray-500">Booking Date</p>
-                      <p className="font-medium">{new Date(flight.booking_date).toLocaleDateString()}</p>
+                      <p className="font-medium text-gray-600">{new Date(flight.booking_date).toLocaleDateString()}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Price</p>
@@ -362,7 +362,7 @@ const Dashboard = () => {
               aria-label="View My Profile"
             >
               <FaUser className="text-xl" />
-              <span>My Profile</span>
+              <span className="text-gray-700">My Profile</span>
             </button>
             <button
               className={`w-full flex items-center justify-start space-x-3 p-3 rounded-lg transition duration-300 ${
@@ -377,7 +377,7 @@ const Dashboard = () => {
               aria-label="View My Flights Booking"
             >
               <FaPlane className="text-xl" />
-              <span>My Flights Booking</span>
+              <span className="text-gray-700">My Flights Booking</span>
             </button>
             <button
               className={`w-full flex items-center justify-start space-x-3 p-3 rounded-lg transition duration-300 ${
@@ -392,7 +392,7 @@ const Dashboard = () => {
               aria-label="View My Tax Returns"
             >
               <FaFileAlt className="text-xl" />
-              <span>My Tax Returns</span>
+              <span className="text-gray-700">My Tax Returns</span>
             </button>
           </div>
           <div className="w-full sm:w-2/3 p-6 transition-all duration-300 ease-in-out">

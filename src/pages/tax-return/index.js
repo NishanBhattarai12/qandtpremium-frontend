@@ -95,7 +95,7 @@ const TaxReturn = () => {
             className="w-[800px] h-[900px] object-cover"
           />
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-            <h2 className="text-white text-8xl md:text-8xl font-bold text-center p-4">
+            <h2 className="text-white text-6xl md:text-8xl font-bold text-center p-4 leading-tight md:leading-none">
               GET YOUR TAX RETURN AT JUST $199
             </h2>
           </div>

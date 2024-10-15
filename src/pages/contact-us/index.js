@@ -65,33 +65,33 @@ const ContactUs = ({ data, visiondata }) => {
         <div className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+                <h2 className="text-2xl text-gray-700 font-bold mb-4">Contact Us</h2>
                 {data.address && ( 
-                    <p className="mb-2"><strong>Address:</strong> {data.address}</p>
+                    <p className="mb-2 text-gray-600"><strong>Address:</strong> {data.address}</p>
                 )}
                 {data.po_box && (
-                    <p className="mb-2"><strong>PO Box:</strong> {data.po_box}</p>
+                    <p className="mb-2 text-gray-600"><strong>PO Box:</strong> {data.po_box}</p>
                 )}
                 {data.telephone_number && (
-                    <p className="mb-2">
+                    <p className="mb-2 text-gray-600">
                         <strong>Telephone:</strong>
                         <a href={`tel:+61${data.telephone_number.replace(/^0/, '').replace(/\s+/g, '')}`}> {data.telephone_number}</a>
                     </p>
                 )}
                 {data.email && (
-                    <p className="mb-2"><strong>Email:</strong><a href={`mailto:${data.email}`}> {data.email}</a></p>
+                    <p className="mb-2 text-gray-600"><strong>Email:</strong><a href={`mailto:${data.email}`}> {data.email}</a></p>
                 )}
                 </div>
 
                 <div>
-                    <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
+                    <h2 className="text-2xl text-gray-700 font-bold mb-4">Get in Touch</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="name">
                             Name
                             </label>
                             <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                             id="name"
                             type="text"
                             required
@@ -101,11 +101,11 @@ const ContactUs = ({ data, visiondata }) => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="email">
                             Email
                             </label>
                             <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                             id="email"
                             type="email"
                             required
@@ -115,11 +115,11 @@ const ContactUs = ({ data, visiondata }) => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="message">
                             Message
                             </label>
                             <textarea
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                             id="message"
                             placeholder="Your message"
                             rows="5"

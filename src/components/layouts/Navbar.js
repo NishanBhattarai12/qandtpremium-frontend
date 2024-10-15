@@ -12,7 +12,7 @@ const Navbar = () => {
   const router = useRouter();
   const { pathname } = router;
 
-  const isActive = (path) => pathname === path ? 'text-[#64AE33]' : '';
+  const isActive = (path) => pathname === path ? 'text-[#64AE33]' : 'text-gray-700';
 
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -137,7 +137,7 @@ const Navbar = () => {
                       tabIndex="-1"
                     >
                       <div className="py-1" role="none">
-                        <Link className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100" href="/dashboard">
+                        <Link onClick={() => setDropdownVisible(false)} className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100" href="/dashboard">
                           My Dashboard
                         </Link>
                       </div>

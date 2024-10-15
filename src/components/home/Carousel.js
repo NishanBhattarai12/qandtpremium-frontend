@@ -71,7 +71,7 @@ function CarouselComponent() {
             alt="tax" 
             className='w-full h-full object-cover'
           />
-          <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
         <div className='relative w-full h-[30rem]'>
           <img 
@@ -79,7 +79,7 @@ function CarouselComponent() {
             alt="tax" 
             className='w-full h-full object-cover'
           />
-          <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
         <div className='relative w-full h-[30rem]'>
           <img 
@@ -87,7 +87,7 @@ function CarouselComponent() {
             alt="tax" 
             className='w-full h-full object-cover'
           />
-          <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
       </Carousel>
       <div className={`absolute inset-0 flex items-center justify-center text-[#ecefed] z-10 transition-opacity duration-1000 ease-in-out transform ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

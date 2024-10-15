@@ -22,7 +22,7 @@ const ServiceAndSpecialities = ({ data, visiondata }) => {
         <div className="max-w-7xl mx-auto">
             {data.introduction && (
                 <div className="p-8">
-                    <h2 className="text-2xl text-gray-600 font-bold mb-4">Introduction</h2>
+                    <h2 className="text-2xl text-gray-700 font-bold mb-4">Introduction</h2>
                     <p className="mb-4 text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
                 </div>
             )}
@@ -35,13 +35,13 @@ const ServiceAndSpecialities = ({ data, visiondata }) => {
                     </div>
                     <div className="w-full md:w-[70%] flex flex-col">
                         <h3 className="text-xl font-bold mb-2">
-                            <Link href='#' className="text-gray-800">
+                            <Link href='#' className="text-gray-700">
                                 {service.name}
                             </Link>
                         </h3>
                         <p className="text-gray-600 mb-2" dangerouslySetInnerHTML={{ __html: service.long_description.length > 300 ? `${service.long_description.slice(0, 300)}...` : service.long_description }}>
                         </p>
-                        <Link href='#' className="text-blue-500 hover:underline">
+                        <Link href='#' className="text-[#64AE33] hover:underline">
                             Learn more
                         </Link>
                     </div>

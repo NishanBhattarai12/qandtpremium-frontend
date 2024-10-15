@@ -9,10 +9,10 @@ const Welcome = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-      <h2 className="text-3xl font-bold mt-4 mb-4">
+      <h2 className="text-3xl font-bold mt-4 mb-4 text-gray-700">
         Welcome to Q and T Premium: Elevating Your Experience
       </h2>
-      <p className="text-lg">
+      <p className="text-lg text-gray-600">
         At Q and T Premium, we are committed to delivering top-tier services that meet the diverse needs of our valued clients. Our mission is to provide a seamless and enriching experience through a variety of premium services that cater to both personal and business requirements.
         {isExpanded && (
           <>
