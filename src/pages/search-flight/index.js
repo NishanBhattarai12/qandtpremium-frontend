@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { FaPlane, FaUser, FaChild, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaPlane, FaUser, FaChild, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useSelector } from 'react-redux';
 import { addBooking } from "@/store/bookingSlice";
 import { useRouter } from 'next/router';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const FlightSearchForm = () => {
   const router = useRouter();
@@ -13,6 +15,9 @@ const FlightSearchForm = () => {
     router.push('/login');
   }
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const [formData, setFormData] = useState({
     from: "",
     to: "",
@@ -20,12 +25,14 @@ const FlightSearchForm = () => {
     toName: "",
     adults: 1,
     children: 0,
+    departureDate: tomorrow
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [formSubmissionSuccess, setFormSubmissionSuccess] = useState(null);
   const [formSubmissionError, setFormSubmissionError] = useState(null);
 
   const locations = {
@@ -88,6 +95,13 @@ const FlightSearchForm = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
+  const handleDateChange = (date) => {
+    setFormData({
+      ...formData,
+      departureDate: date,
+    });
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.from) newErrors.from = "Please select a departure location";
@@ -104,15 +118,7 @@ const FlightSearchForm = () => {
     if (validateForm()) {
       setIsLoading(true);
 
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate() + 1);
-
-      const year = tomorrow.getFullYear();
-      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
-      const day = String(tomorrow.getDate()).padStart(2, '0');
-
-      const formattedDate = `${year}-${month}-${day}`;
+      const formattedDate = formData.departureDate.toISOString().split('T')[0];
       
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/flights/search-flights?origin=${formData.from}&destination=${formData.to}&departure_date=${formattedDate}&adults=${formData.adults}&children=${formData.children}`, {
@@ -132,7 +138,7 @@ const FlightSearchForm = () => {
         const flights = [];
         let i = 0;
 
-        for (i = 0; i < result.best_flights.length; i++) {
+        for (i = 0; i < result.best_flights?.length; i++) {
           flights.push({
             id: i + 1,
             logo: result.best_flights[i].flights[0].airline_logo,
@@ -147,7 +153,7 @@ const FlightSearchForm = () => {
           });
         }
 
-        for (i = i; i < result.other_flights.length; i++) {
+        for (i = i; i < result.other_flights?.length; i++) {
           flights.push({
             id: i + 1,
             logo: result.other_flights[i].flights[0].airline_logo,
@@ -291,6 +297,28 @@ const FlightSearchForm = () => {
               </p>
             )}
           </div>
+          <div>
+            <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700">
+              Departure Date
+            </label>
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                <FaCalendarAlt className="h-5 w-5 text-gray-400" />
+              </div>
+              <DatePicker
+                selected={formData.departureDate}
+                onChange={handleDateChange}
+                minDate={tomorrow}
+                className="block w-full pl-10 pr-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                aria-describedby="departureDate-error"
+              />
+            </div>
+            {errors.departureDate && (
+              <p className="mt-2 text-sm text-red-600" id="departureDate-error">
+                {errors.departureDate}
+              </p>
+            )}
+          </div>
         </div>
         <div className="flex justify-center">
           <button
@@ -325,7 +353,7 @@ const FlightSearchForm = () => {
         <p className="mt-4 text-red-600 text-center">{formSubmissionError}</p>
       )}
       {searchResults.length > 0 && (
-        <div className="mt-8 bg-white rounded-lg shadow-md p-6 relative z-10">
+        <div className="mt-8 bg-white rounded-lg shadow-md p-6 relative">
           <h3 className="text-2xl font-semibold mb-4 text-gray-800">Search Results</h3>
           <div className="space-y-4">
             {currentItems.map((flight) => (
@@ -378,6 +406,11 @@ const FlightSearchForm = () => {
               </button>
             </nav>
           </div>
+        </div>
+      )}
+      {formSubmissionSuccess && searchResults.length === 0 && (
+        <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+          <p className="text-center text-gray-600">No flights found.</p>
         </div>
       )}
     </div>
