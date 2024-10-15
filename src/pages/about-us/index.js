@@ -92,7 +92,7 @@ const AboutUs = ({ data, visiondata }) => {
           <h2 className="text-2xl text-[#3466ad] text-center text-gray-600 font-bold mb-6">{visiondata.introduction}</h2>
           <div className="grid mt-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {visiondata.visions.map((item, index) => (
-              <Link className="flex flex-col items-center text-center" key={index} href='#'>
+              <Link className="flex flex-col items-center text-center" key={index} href={`/our-vision/${item.slug}`}>
                 <img src={item.icon} alt={item.title} className="w-16 h-16 mb-4" />
                 <h3 className="text-xl font-bold transition-all text-gray-600 hover:text-gray-800">{item.title}</h3>
               </Link>
