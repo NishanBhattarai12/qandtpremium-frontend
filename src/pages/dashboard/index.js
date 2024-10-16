@@ -372,61 +372,67 @@ const Dashboard = () => {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl text-gray-700 font-bold">My Flights Booking</h2>
-            {paginatedFlights.map((flight, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow">
-                <div className="flex flex-col space-y-3">
-                  <div className="flex items-center justify-between flex-wrap">
-                    <img src={flight.logo_url} alt={flight.airline} className="h-8 mb-2 sm:mb-0" />
-                    <span className="text-lg text-gray-700 font-semibold mb-2 sm:mb-0">{flight.airline}</span>
-                    <span className={`px-2 py-1 rounded-full text-sm ${flight.status === "pending" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}`}>
-                      {flight.status.charAt(0).toUpperCase() + flight.status.slice(1)}
-                    </span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div className="mb-2 sm:mb-0">
-                      <p className="text-sm text-gray-500">From</p>
-                      <p className="font-medium text-gray-600">{flight.departure_location}</p>
-                    </div>
-                    <FaPlane className="text-blue-500 my-2 sm:my-0 transform rotate-90 sm:rotate-0" />
-                    <div>
-                      <p className="text-sm text-gray-500">To</p>
-                      <p className="font-medium text-gray-600">{flight.arrival_location}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div className="mb-2 sm:mb-0">
-                      <p className="text-sm text-gray-500">Departure</p>
-                      <p className="font-medium text-gray-600">{new Date(flight.departure_time).toLocaleString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Arrival</p>
-                      <p className="font-medium text-gray-600">{new Date(flight.arrival_time).toLocaleString()}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div className="mb-2 sm:mb-0">
-                      <p className="text-sm text-gray-500">Flight</p>
-                      <p className="font-medium text-gray-600">{flight.flight_number}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Aircraft</p>
-                      <p className="font-medium text-gray-600">{flight.airplane_name}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div className="mb-2 sm:mb-0">
-                      <p className="text-sm text-gray-500">Booking Date</p>
-                      <p className="font-medium text-gray-600">{new Date(flight.booking_date).toLocaleDateString()}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Price</p>
-                      <p className="font-medium text-green-600">${flight.price}</p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500">Payment ID: {flight.stripe_payment_id}</p>
-                </div>
+            {paginatedFlights.length === 0 ? (
+              <div className="bg-white p-4 rounded-lg shadow">
+                <p className="text-center text-gray-700 font-semibold">No bookings</p>
               </div>
-            ))}
+            ) : (
+              paginatedFlights.map((flight, index) => (
+                <div key={index} className="bg-white p-4 rounded-lg shadow">
+                  <div className="flex flex-col space-y-3">
+                    <div className="flex items-center justify-between flex-wrap">
+                      <img src={flight.logo_url} alt={flight.airline} className="h-8 mb-2 sm:mb-0" />
+                      <span className="text-lg text-gray-700 font-semibold mb-2 sm:mb-0">{flight.airline}</span>
+                      <span className={`px-2 py-1 rounded-full text-sm ${flight.status === "pending" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"}`}>
+                        {flight.status.charAt(0).toUpperCase() + flight.status.slice(1)}
+                      </span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                      <div className="mb-2 sm:mb-0">
+                        <p className="text-sm text-gray-500">From</p>
+                        <p className="font-medium text-gray-600">{flight.departure_location}</p>
+                      </div>
+                      <FaPlane className="text-blue-500 my-2 sm:my-0 transform rotate-90 sm:rotate-0" />
+                      <div>
+                        <p className="text-sm text-gray-500">To</p>
+                        <p className="font-medium text-gray-600">{flight.arrival_location}</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                      <div className="mb-2 sm:mb-0">
+                        <p className="text-sm text-gray-500">Departure</p>
+                        <p className="font-medium text-gray-600">{new Date(flight.departure_time).toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Arrival</p>
+                        <p className="font-medium text-gray-600">{new Date(flight.arrival_time).toLocaleString()}</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                      <div className="mb-2 sm:mb-0">
+                        <p className="text-sm text-gray-500">Flight</p>
+                        <p className="font-medium text-gray-600">{flight.flight_number}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Aircraft</p>
+                        <p className="font-medium text-gray-600">{flight.airplane_name}</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                      <div className="mb-2 sm:mb-0">
+                        <p className="text-sm text-gray-500">Booking Date</p>
+                        <p className="font-medium text-gray-600">{new Date(flight.booking_date).toLocaleDateString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Price</p>
+                        <p className="font-medium text-green-600">${flight.price}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500">Payment ID: {flight.stripe_payment_id}</p>
+                  </div>
+                </div>
+              ))
+            )}
             {renderPagination(flightsData.length)}
           </div>
         );
@@ -437,44 +443,50 @@ const Dashboard = () => {
           <>
             <div className="space-y-4">
               <h2 className="text-2xl font-bold">My Tax Returns</h2>
-              {paginatedTaxReturns.map((entry, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
-                  role="article"
-                >
-                  <div className="flex justify-between items-start mb-4">
-                    <h2 className="text-xl font-semibold">{`${entry.first_name} ${entry.last_name}`}</h2>
-                    <div className="flex items-center">
-                      {getStatusIcon(entry.status)}
-                      <span className="ml-2 text-sm font-medium">{getStatusText(entry.status)}</span>
+              {paginatedTaxReturns.length === 0 ? (
+                <div className="bg-white p-4 rounded-lg shadow">
+                  <p className="text-center text-gray-700 font-semibold">No Tax Returns</p>
+                </div>
+              ): (
+                paginatedTaxReturns.map((entry, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
+                    role="article"
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h2 className="text-xl font-semibold">{`${entry.first_name} ${entry.last_name}`}</h2>
+                      <div className="flex items-center">
+                        {getStatusIcon(entry.status)}
+                        <span className="ml-2 text-sm font-medium">{getStatusText(entry.status)}</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 mb-2 flex items-center"><FaCalendarAlt className="mr-2" /><span className="font-medium">Date of Birth:</span> {entry.dob}</p>
+                    <p className="text-gray-600 mb-2 flex items-center"><FaMapMarkerAlt className="mr-2" /><span className="font-medium">Address:</span> {entry.address}</p>
+                    <p className="text-gray-600 mb-2 flex items-center"><FaIdCard className="mr-2" /><span className="font-medium">Tax Number:</span> {entry.tax_number}</p>
+                    <p className="text-gray-600 mb-2 flex items-center"><FaBriefcase className="mr-2" /><span className="font-medium">Job Title:</span> {entry.job_title}</p>
+                    <p className="text-gray-600 mb-4 flex items-center"><FaCreditCard className="mr-2" /><span className="font-medium">Payment ID:</span> {entry.payment_id}</p>
+                    <div className="flex justify-between items-center">
+                      <button
+                        onClick={() => handleEntryClick(entry)}
+                        className="bg-[#33AE64] hover:bg-[#299755] text-white px-4 py-2 rounded transition-colors duration-300 flex items-center"
+                        aria-label="View details"
+                      >
+                        <FaEye className="mr-2" /> View Details
+                      </button>
+                      {entry.status === 'invalid_file' && (
+                        <button
+                          onClick={() => handleOpenUploadModal(entry.id)}
+                          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center"
+                          aria-label="Upload new file"
+                        >
+                          <FaUpload className="mr-2" /> Upload New File
+                        </button>
+                      )}
                     </div>
                   </div>
-                  <p className="text-gray-600 mb-2 flex items-center"><FaCalendarAlt className="mr-2" /><span className="font-medium">Date of Birth:</span> {entry.dob}</p>
-                  <p className="text-gray-600 mb-2 flex items-center"><FaMapMarkerAlt className="mr-2" /><span className="font-medium">Address:</span> {entry.address}</p>
-                  <p className="text-gray-600 mb-2 flex items-center"><FaIdCard className="mr-2" /><span className="font-medium">Tax Number:</span> {entry.tax_number}</p>
-                  <p className="text-gray-600 mb-2 flex items-center"><FaBriefcase className="mr-2" /><span className="font-medium">Job Title:</span> {entry.job_title}</p>
-                  <p className="text-gray-600 mb-4 flex items-center"><FaCreditCard className="mr-2" /><span className="font-medium">Payment ID:</span> {entry.payment_id}</p>
-                  <div className="flex justify-between items-center">
-                    <button
-                      onClick={() => handleEntryClick(entry)}
-                      className="bg-[#33AE64] hover:bg-[#299755] text-white px-4 py-2 rounded transition-colors duration-300 flex items-center"
-                      aria-label="View details"
-                    >
-                      <FaEye className="mr-2" /> View Details
-                    </button>
-                    {entry.status === 'invalid_file' && (
-                      <button
-                        onClick={() => handleOpenUploadModal(entry.id)}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center"
-                        aria-label="Upload new file"
-                      >
-                        <FaUpload className="mr-2" /> Upload New File
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
               {renderPagination(taxReturnsData.length)}
             </div>
             {selectedEntry && (
