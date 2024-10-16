@@ -8,6 +8,7 @@ const TaxReturn = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [errors, setErrors] = useState({});
 
   if (!accessToken) {
     router.push('/login');
@@ -59,8 +60,56 @@ const TaxReturn = () => {
     });
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+  
+    if (!formData.firstName) {
+      newErrors.firstName = 'First Name is required';
+    } else if (!/[a-zA-Z]/.test(formData.firstName)) {
+      newErrors.firstName = 'First Name must contain alphabetic characters';
+    }
+  
+    if (!formData.lastName) {
+      newErrors.lastName = 'Last Name is required';
+    } else if (!/[a-zA-Z]/.test(formData.lastName)) {
+      newErrors.lastName = 'Last Name must contain alphabetic characters';
+    }
+  
+    if (!formData.dob) {
+      newErrors.dob = 'Date of Birth is required';
+    }
+  
+    if (!formData.address) {
+      newErrors.address = 'Address is required';
+    }
+  
+    if (!formData.taxNumber) {
+      newErrors.taxNumber = 'Tax Number or ABN Number is required';
+    }
+  
+    if (!formData.jobTitle) {
+      newErrors.jobTitle = 'Job Title is required';
+    }
+  
+    if (!formData.message) {
+      newErrors.message = 'Message is required';
+    }
+  
+    if (!formData.fileid) {
+      newErrors.file = 'File is required';
+    }
+  
+    setErrors(newErrors);
+  
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+
     try {
       const response = await fetch("https://api.stripe.com/v1/payment_intents", {
         method: "POST",
@@ -134,135 +183,135 @@ const TaxReturn = () => {
         <div className="w-full md:w-1/2 p-8 bg-gray-100 flex items-center justify-center">
           <div className="w-full max-w-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Tax Return Form</h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  id="dob"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
+                    Date of Birth
+                  </label>
+                  <input
+                    type="date"
+                    id="dob"
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.dob && <p className="text-red-500 text-sm mt-1">{errors.dob}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                  Current Address
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                    Current Address
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="taxNumber" className="block text-sm font-medium text-gray-700">
-                  Tax Number or ABN Number
-                </label>
-                <input
-                  type="text"
-                  id="taxNumber"
-                  name="taxNumber"
-                  value={formData.taxNumber}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="taxNumber" className="block text-sm font-medium text-gray-700">
+                    Tax Number or ABN Number
+                  </label>
+                  <input
+                    type="text"
+                    id="taxNumber"
+                    name="taxNumber"
+                    value={formData.taxNumber}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.taxNumber && <p className="text-red-500 text-sm mt-1">{errors.taxNumber}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">
-                  Job Title
-                </label>
-                <input
-                  type="text"
-                  id="jobTitle"
-                  name="jobTitle"
-                  value={formData.jobTitle}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700">
+                    Job Title
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    name="jobTitle"
+                    value={formData.jobTitle}
+                    onChange={handleChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.jobTitle && <p className="text-red-500 text-sm mt-1">{errors.jobTitle}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Message (Bank Details)
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="4"
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                ></textarea>
-              </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                    Message (Bank Details)
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="4"
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  ></textarea>
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                </div>
 
-              <div>
-                <label htmlFor="file" className="block text-sm font-medium text-gray-700">
-                  Upload File
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={handleFileChange}
-                  className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="file" className="block text-sm font-medium text-gray-700">
+                    Upload File
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                    className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                  />
+                  {errors.file && <p className="text-red-500 text-sm mt-1">{errors.file}</p>}
+                </div>
 
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="bg-[#64AE33] text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"
-                >
-                  Proceed to Payment
-                </button>
-              </div>
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    className="bg-[#64AE33] text-white py-2 px-6 rounded-md hover:bg-green-700 transition duration-300"
+                  >
+                    Proceed to Payment
+                  </button>
+                </div>
             </form>
           </div>
         </div>
