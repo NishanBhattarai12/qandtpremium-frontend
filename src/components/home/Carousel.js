@@ -92,7 +92,7 @@ function CarouselComponent() {
       </Carousel>
       <div className={`absolute inset-0 flex items-center justify-center text-[#ecefed] z-10 transition-opacity duration-1000 ease-in-out transform ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">Expert Guidance for Your Business Growth</h1>
+          <h1 className="text-3xl md:text-4xl uppercase font-bold mb-4">Expert Guidance for Your Business Growth</h1>
           <Link href="/BookAppointment">
             <button className="px-4 py-2 bg-[#64AE33] text-white text-lg font-semibold rounded hover:bg-green-800">Book My Appointment</button>
           </Link>

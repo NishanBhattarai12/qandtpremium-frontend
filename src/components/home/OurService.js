@@ -68,8 +68,8 @@ const OurService = () => {
                 className="w-[300px] h-[300px] object-cover mx-auto shadow-lg transition-transform duration-300 transform hover:scale-105"
               />
               <h3 className="text-xl font-semibold h-14 text-gray-800">{service.name}</h3>
-              <Link className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-2 px-4 rounded" href={`/service-specialities/${service.slug}`}>
-                Read More...
+              <Link className="bg-[#64AE33] hover:bg-green-800 transition-all text-white py-3 px-4 rounded" href={`/service-specialities/${service.slug}`}>
+                Read More
               </Link>
             </div>
           ))}

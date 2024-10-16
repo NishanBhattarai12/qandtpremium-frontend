@@ -32,7 +32,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
         <div className="flex flex-col items-start space-y-4">
           <div className="footer-img flex items-center">
-            <img src="./logos.svg" alt="footerlogo" className="w-96 h-auto bg-white" />
+            <img src="./logos.svg" alt="footerlogo" className="w-80 h-auto bg-white" />
           </div>
           <div className="infos text-white text-sm">
             <span>Copyright © 2024 Q and T premium</span>
