@@ -73,8 +73,39 @@ const FlightSearchForm = () => {
       });
 
       const data = await response.json();
-      flight.clientSecret = data.client_secret;
 
+      if (!response.ok) {
+        throw new Error(data.error.message);
+      }
+
+      const response2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/flights/book-flight`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          booking_date: new Date(),
+          flight_number: flight.flight_number,
+          airplane_name: flight.airplane,
+          logo_url: flight.logo,
+          departure_time: flight.departure,
+          arrival_time: flight.arrival,
+          price: flight.price,
+          departure_location: flight.from,
+          arrival_location: flight.to,
+          airline: flight.airline,
+        }),
+      });
+
+      const data2 = await response2.json();
+
+      if (!response2.ok) {
+        throw new Error('Error booking flight.');
+      }
+      
+      flight.booking_id = data2.id
+      flight.clientSecret = data.client_secret;
       dispatch(addBooking(flight));
       router.push('/search-flight/booking');
     } catch (error) {

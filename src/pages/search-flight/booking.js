@@ -27,23 +27,13 @@ const FlightBookingUI = () => {
 
     const sendPostRequest = async (paymentId) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/flights/book-flight`, {
-                method: 'POST',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/flights/update-booking-flight/${bookings.booking_id}`, {
+                method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    booking_date: new Date(),
-                    flight_number: bookings.flight_number,
-                    airplane_name: bookings.airplane,
-                    logo_url: bookings.logo,
-                    departure_time: bookings.departure,
-                    arrival_time: bookings.arrival,
-                    price: bookings.price,
-                    departure_location: bookings.from,
-                    arrival_location: bookings.to,
-                    airline: bookings.airline,
                     stripe_payment_id: paymentId,
                     status: 'paid'
                 }),
