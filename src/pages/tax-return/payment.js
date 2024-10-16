@@ -27,22 +27,15 @@ const TaxReturnPayment = () => {
 
     const sendPostRequest = async (paymentId) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/send-tax-return-request`, {
-                method: 'POST',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/update-tax-return-request/${taxReturn.taxReturnId}`, {
+                method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    first_name: taxReturn.firstName,
-                    last_name: taxReturn.lastName,
-                    dob: taxReturn.dob,
-                    address: taxReturn.address,
-                    tax_number: taxReturn.taxNumber,
-                    job_title: taxReturn.jobTitle,
-                    message: taxReturn.message,
-                    file_id: taxReturn.fileid,
-                    payment_id: paymentId,
+                    status: 'in_progress',
+                    payment_id: paymentId
                 }),
             });
 

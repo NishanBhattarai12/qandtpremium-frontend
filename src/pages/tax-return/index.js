@@ -75,15 +75,45 @@ const TaxReturn = () => {
       });
 
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error.message);
+      }
+
+      const response2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/taxreturn/send-tax-return-request`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          dob: formData.dob,
+          address: formData.address,
+          tax_number: formData.taxNumber,
+          job_title: formData.jobTitle,
+          message: formData.message,
+          file_id: formData.fileid,
+        }),
+      });
+
+      if (!response2.ok) {
+        throw new Error('Error sending tax return request');
+      }
+
+      const data2 = await response2.json();
+
       dispatch(addTaxReturn({
         ...formData,
+        taxReturnId: data2.tax_return_id,
         clientSecret: data.client_secret
       }));
       router.push('/tax-return/payment');
     } catch (error) {
       console.error("Error creating payment intent:", error);
     }
-  };
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
