@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 const ContactUs = ({ data, visiondata }) => {
     data = data[0];
-    console.log(data);
     visiondata = visiondata[0];
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -13,6 +12,8 @@ const ContactUs = ({ data, visiondata }) => {
         email: '',
         message: ''
     });
+
+    const [errors, setErrors] = useState({});
     
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -22,10 +23,38 @@ const ContactUs = ({ data, visiondata }) => {
         }));
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+    
+        if (!formData.name) {
+          newErrors.name = 'Name is required';
+        } else if (!/[a-zA-Z]/.test(formData.name)) {
+          newErrors.name = 'Name must contain alphabetic characters';
+        }
+    
+        if (!formData.email) {
+          newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+          newErrors.email = 'Email is invalid';
+        }
+    
+        if (!formData.message) {
+          newErrors.message = 'Message is required';
+        }
+    
+        setErrors(newErrors);
+    
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccessMessage('');
         setErrorMessage('');
+
+        if (!validateForm()) {
+            return;
+        }
       
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/contactdetails/submit-contact-form`, {
             method: 'POST',
@@ -94,11 +123,11 @@ const ContactUs = ({ data, visiondata }) => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                             id="name"
                             type="text"
-                            required
                             placeholder="Your name"
                             value={formData.name}
                             onChange={handleChange}
                             />
+                            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="email">
@@ -108,11 +137,11 @@ const ContactUs = ({ data, visiondata }) => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline"
                             id="email"
                             type="email"
-                            required
                             placeholder="Your email"
                             value={formData.email}
                             onChange={handleChange}
                             />
+                            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="message">
@@ -126,6 +155,7 @@ const ContactUs = ({ data, visiondata }) => {
                             value={formData.message}
                             onChange={handleChange}
                             ></textarea>
+                            {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                         </div>
                         <div className="flex items-center justify-between">
                             <button
