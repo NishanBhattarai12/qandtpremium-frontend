@@ -91,7 +91,7 @@ const Navbar = () => {
             priority
           />
         </Link>
-        <div className="hidden sm:flex items-center">
+        <div className="hidden lg:flex items-center">
           <ul className="flex space-x-10">
             <li className={`relative text-xl uppercase group ${isActive('/')}`}>
               <Link href="/" className="hover:text-[#64AE33] transition-all duration-300">Home</Link>
@@ -183,14 +183,14 @@ const Navbar = () => {
         </div>
         <div
           onClick={handleNav}
-          className="sm:hidden cursor-pointer pl-24 m-5 menu-icon"
+          className="lg:hidden cursor-pointer pl-24 m-5 menu-icon"
         >
           <AiOutlineMenu size={25} />
         </div>
       </div>
       <div
         ref={menuRef}
-        className={`fixed left-0 top-0 w-[70%] sm:hidden h-screen bg-[#64AE33] p-10 ease-in duration-500 ${menuOpen ? 'translate-x-0' : 'translate-x-[-100%]'}`}
+        className={`fixed left-0 top-0 w-[70%] lg:hidden h-screen bg-[#64AE33] p-10 ease-in duration-500 ${menuOpen ? 'translate-x-0' : 'translate-x-[-100%]'}`}
       >
         <div className="flex items-center mb-8">
           <Link href="/">
