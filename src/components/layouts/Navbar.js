@@ -102,7 +102,7 @@ const Navbar = () => {
               <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${isUnderlineActive('/about-us')} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
             <li className={`relative text-xl uppercase group ${isActive('/service-specialities')}`}>
-              <Link href="/service-specialities" className="hover:text-[#64AE33] transition-all duration-300">Service and Specialities</Link>
+              <Link href="/service-specialities" className="hover:text-[#64AE33] transition-all duration-300">Services</Link>
               <div className={`absolute left-0 bottom-0 w-full h-0.5 bg-[#64AE33] ${isUnderlineActive('/service-specialities')} transition-transform duration-300 ease-in-out group-hover:scale-x-100`} />
             </li>
             <li className={`relative text-xl uppercase group ${isActive('/our-team')}`}>

@@ -33,7 +33,7 @@ const ServiceAndSpecialitiesDynamic = () => {
                     <Link className="hover:underline" href="/">
                     Home
                     </Link> &gt; <Link className="hover:underline" href="/service-specialities">
-                    Services and Specialities
+                    Services
                     </Link> &gt; 
                     <span> {serviceData.name}</span>
                 </nav>

@@ -13,7 +13,7 @@ const Footer = () => {
       { label: "Company", key: "header-1" },
       { label: "Home", link: '/', key: "item-1-0" },
       { label: "About us", link: '/about-us', key: "item-1-1" },
-      { label: "Service and Specilaities", link: '/service-specialities', key: "item-1-2" },
+      { label: "Services", link: '/service-specialities', key: "item-1-2" },
       { label: "Our Team", link: '/our-team', key: "item-1-3" },
       { label: "Contact Us", link: '/contact-us', key: "item-1-4" },
     ],
