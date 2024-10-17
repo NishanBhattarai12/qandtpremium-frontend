@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 import { setTokens } from '@/store/authSlice';
 import { addBooking } from "@/store/bookingSlice";
+import { addTaxReturn } from '@/store/taxReturnSlice';
 import { FaUser, FaPlane, FaCalendarAlt, FaEnvelope, FaComment, FaCheckCircle, FaExclamationCircle, FaHourglassHalf, FaTimesCircle, FaCreditCard, FaMapMarkerAlt, FaBriefcase, FaIdCard, FaEye, FaUpload, FaFileAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -158,7 +159,6 @@ const Dashboard = () => {
   };
 
   const handleFileSubmit = async (e) => {
-    console.log(currentTaxReturnId);
     e.preventDefault();
     if (file) {
       try {
@@ -182,6 +182,51 @@ const Dashboard = () => {
       }
     }
   };
+
+  const getFilenameFromUrl = (url) => {
+    const urlObject = new URL(url);
+    const pathname = urlObject.pathname;
+    const filename = pathname.substring(pathname.lastIndexOf('/') + 1);
+    return filename;
+  };
+
+  const handlePayNowForTaxReturns = async (taxreturn) => {
+    try {
+      const response = await fetch("https://api.stripe.com/v1/payment_intents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRIP_SECRET_KEY}`
+        },
+        body: new URLSearchParams({
+          amount: 199 * 100,
+          currency: "usd"
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error.message);
+      }
+
+      dispatch(addTaxReturn({
+        firstName: taxreturn.first_name,
+        lastName: taxreturn.last_name,
+        dob: taxreturn.dob,
+        address: taxreturn.address,
+        taxNumber: taxreturn.tax_number,
+        jobTitle: taxreturn.job_title,
+        message: taxreturn.message,
+        taxReturnId: taxreturn.id,
+        filename: getFilenameFromUrl(taxreturn.file['filepath']),
+        clientSecret: data.client_secret
+      }));
+      router.push('/tax-return/payment');
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
+    }
+  }
 
   const handlePayNow = async (flight) => {
     try {
@@ -532,6 +577,14 @@ const Dashboard = () => {
                         </button>
                       )}
                     </div>
+                    {entry.status === "pending" && (
+                      <button
+                        onClick={() => handlePayNowForTaxReturns(entry)}
+                        className="bg-[#33AE64] text-white px-4 py-2 rounded hover:bg-[#299755] transition-colors duration-300 mt-6 w-full"
+                      >
+                        Pay Now
+                      </button>
+                    )}
                   </div>
                 ))
               )}
