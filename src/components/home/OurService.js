@@ -55,7 +55,7 @@ const OurService = () => {
       </div>
 
       <div className="bg-[#64AE33] py-8 text-center mt-12">
-        <h2 className="text-white text-3xl font-bold">Other Advisory Service</h2>
+        <h2 className="text-white text-3xl font-bold">Other Advisory Services</h2>
       </div>
 
       <div className="max-w-7xl mx-auto px-4">
