@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 import { setTokens } from '@/store/authSlice';
+import { addBooking } from "@/store/bookingSlice";
 import { FaUser, FaPlane, FaCalendarAlt, FaEnvelope, FaComment, FaCheckCircle, FaExclamationCircle, FaHourglassHalf, FaTimesCircle, FaCreditCard, FaMapMarkerAlt, FaBriefcase, FaIdCard, FaEye, FaUpload, FaFileAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -179,6 +180,45 @@ const Dashboard = () => {
         setErrorMessage('File upload failed');
         console.error('Error uploading file:', error);
       }
+    }
+  };
+
+  const handlePayNow = async (flight) => {
+    try {
+      const response = await fetch("https://api.stripe.com/v1/payment_intents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRIP_SECRET_KEY}`
+        },
+        body: new URLSearchParams({
+          amount: flight.price * 100,
+          currency: "usd"
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error.message);
+      }
+      
+      dispatch(addBooking({
+        booking_id: flight.id,
+        logo: flight.logo_url,
+        airline: flight.airline,
+        price: flight.price,
+        departure: flight.departure_time,
+        arrival: flight.arrival_time,
+        from: flight.departure_location,
+        to: flight.arrival_location,
+        airplane: flight.airplane_name,
+        flight_number: flight.flight_number,
+        clientSecret: data.client_secret
+      }));
+      router.push('/search-flight/booking');
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
     }
   };
 
@@ -429,6 +469,14 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <p className="text-xs text-gray-500">Payment ID: {flight.stripe_payment_id}</p>
+                    {flight.status === "pending" && (
+                      <button
+                        onClick={() => handlePayNow(flight)}
+                        className="bg-[#33AE64] text-white px-4 py-2 rounded hover:bg-[#299755] transition-colors duration-300"
+                      >
+                        Pay Now
+                      </button>
+                    )}
                   </div>
                 </div>
               ))
