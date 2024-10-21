@@ -94,7 +94,7 @@ function CarouselComponent() {
         <div className="text-center">
           <h1 className="text-3xl md:text-4xl uppercase font-bold mb-4">Expert Guidance for Your Business Growth</h1>
           <Link href="/BookAppointment">
-            <button className="px-4 py-2 bg-[#64AE33] text-white text-lg font-semibold rounded hover:bg-green-800">Book My Appointment</button>
+            <button className="px-4 py-2 transition-all bg-[#64AE33] text-white text-lg font-semibold rounded hover:bg-green-800">Book My Appointment</button>
           </Link>
         </div>
       </div>

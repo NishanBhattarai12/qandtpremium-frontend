@@ -40,51 +40,63 @@ const AboutUs = ({ data, visiondata }) => {
           <p className="mb-4 text-center text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
         </div>
 
-        <div className="px-8 mx-4 pt-8 rounded-lg shadow-lg">
-          <div className="w-full flex flex-col items-center justify-center bg-white p-2 md:px-6">
-            <img src={data.founders[0].image} alt="Person" className="mb-4 w-48 h-48 object-cover rounded-full shadow-md" />
-            <h3 className="text-xl text-gray-700 font-bold text-center">{data.founders[0].name}</h3>
-            <p className="text-gray-600 mb-2 text-center">{data.founders[0].title}</p>
-            <p className="text-gray-600 text-center" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
+        <div className="p-8 mx-4 mt-6 rounded-lg bg-white shadow-lg md:flex md:items-center">
+          <div className="md:w-1/3 flex justify-center self-start" style={{ marginTop: "50px" }}>
+            <img
+              src={data.founders[0].image}
+              alt="Person"
+              className="w-40 h-40 object-cover rounded-full border-4 border-[#64AE33] transition-transform transform hover:scale-105"
+            />
           </div>
-          <div className="w-full bg-white p-2 md:px-6">
-            <p className="text-gray-600 text-center mb-2">
-              <span dangerouslySetInnerHTML={{ __html: isExpanded ? data.founders[0].long_description : truncatedText + '...' }}></span>
-              <a
-                href="#"
-                className="text-[#64AE33] hover:underline ml-1"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleReadMore();
-                }}
-              >
-                {isExpanded ? 'Read Less' : 'Read More'}
-              </a>
-            </p>
+          <div className="md:w-2/3 mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+            <h3 className="text-2xl font-semibold text-gray-800">{data.founders[0].name}</h3>
+            <p className="text-lg text-gray-500">{data.founders[0].title}</p>
+            <p className="mt-2 text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
+            <div className="mt-4">
+              <p className="text-gray-600">
+                <span dangerouslySetInnerHTML={{ __html: isExpanded ? data.founders[0].long_description : truncatedText + '...' }}></span>
+                <a
+                  href="#"
+                  className="text-[#64AE33] font-medium ml-1 hover:underline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleReadMore();
+                  }}
+                >
+                  {isExpanded ? 'Read Less' : 'Read More'}
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="px-8 mx-4 pt-12 mt-16 rounded-lg shadow-lg flex flex-col-reverse">
-          <div className="w-full bg-white p-2 md:px-6">
-            <p className="text-gray-600 text-center mb-2">
-              <span dangerouslySetInnerHTML={{ __html: isExpanded2 ? data.founders[1].long_description : truncatedText2 + '...' }}></span>
-              <a
-                href="#"
-                className="text-[#64AE33] hover:underline ml-1"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleReadMore2();
-                }}
-              >
-                {isExpanded2 ? 'Read Less' : 'Read More'}
-              </a>
-            </p>
+        <div className="p-8 mt-6 mx-4 rounded-lg bg-white shadow-lg md:flex md:items-center">
+          <div className="md:w-1/3 flex justify-center self-start" style={{ marginTop: "50px" }}>
+            <img
+              src={data.founders[1].image}
+              alt="Person"
+              className="w-40 h-40 object-cover rounded-full border-4 border-[#64AE33] transition-transform transform hover:scale-105"
+            />
           </div>
-          <div className="w-full flex flex-col p-2 md:px-6 items-center justify-center">
-            <img src={data.founders[1].image} alt="Person" className="mb-4 w-48 h-48 object-cover rounded-full" />
-            <h3 className="text-xl font-bold text-center">{data.founders[1].name}</h3>
-            <p className="text-gray-600 mb-2 text-center">{data.founders[1].title}</p>
-            <p className="text-gray-600 text-center" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
+          <div className="md:w-2/3 mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+            <h3 className="text-2xl font-semibold text-gray-800">{data.founders[1].name}</h3>
+            <p className="text-lg text-gray-500">{data.founders[1].title}</p>
+            <p className="mt-2 text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
+            <div className="mt-4">
+              <p className="text-gray-600">
+                <span dangerouslySetInnerHTML={{ __html: isExpanded2 ? data.founders[1].long_description : truncatedText2 + '...' }}></span>
+                <a
+                  href="#"
+                  className="text-[#64AE33] font-medium ml-1 hover:underline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleReadMore2();
+                  }}
+                >
+                  {isExpanded2 ? 'Read Less' : 'Read More'}
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 
