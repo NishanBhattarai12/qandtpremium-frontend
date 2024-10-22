@@ -5,20 +5,15 @@ const AboutUs = ({ data, visiondata }) => {
   data = data[0];
   visiondata = visiondata[0];
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isExpanded2, setIsExpanded2] = useState(false);
-  const words = data.founders[0].long_description.split(' ');
-  const words2 = data.founders[1].long_description.split(' ');
-  const truncatedText = words.slice(0, 100).join(' ');
-  const truncatedText2 = words2.slice(0, 100).join(' ');
+  const [expandedStates, setExpandedStates] = useState(data.founders.map(() => false));
 
-  const toggleReadMore = () => {
-    setIsExpanded(!isExpanded);
+  const toggleReadMore = (index) => {
+    setExpandedStates((prevStates) => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
   };
-
-  const toggleReadMore2 = () => {
-    setIsExpanded2(!isExpanded2);
-  }
 
   return (
     <>
@@ -40,65 +35,48 @@ const AboutUs = ({ data, visiondata }) => {
           <p className="mb-4 text-center text-gray-600" dangerouslySetInnerHTML={{ __html: data.introduction }}></p>
         </div>
 
-        <div className="p-8 mx-4 mt-6 rounded-lg bg-white shadow-lg md:flex md:items-center">
-          <div className="md:w-1/3 flex justify-center self-start" style={{ marginTop: "50px" }}>
-            <img
-              src={data.founders[0].image}
-              alt="Person"
-              className="w-40 h-40 object-cover rounded-full border-4 border-[#64AE33] transition-transform transform hover:scale-105"
-            />
-          </div>
-          <div className="md:w-2/3 mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">{data.founders[0].name}</h3>
-            <p className="text-lg text-gray-500">{data.founders[0].title}</p>
-            <p className="mt-2 text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[0].short_description }}></p>
-            <div className="mt-4">
-              <p className="text-gray-600">
-                <span dangerouslySetInnerHTML={{ __html: isExpanded ? data.founders[0].long_description : truncatedText + '...' }}></span>
-                <a
-                  href="#"
-                  className="text-[#64AE33] font-medium ml-1 hover:underline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleReadMore();
-                  }}
-                >
-                  {isExpanded ? 'Read Less' : 'Read More'}
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
+        {data.founders.map((founder, index) => {
+          const words = founder.long_description.split(' ');
+          const truncatedText = words.slice(0, 100).join(' ');
+          const shouldShowReadMore = words.length > 100;
 
-        <div className="p-8 mt-6 mx-4 rounded-lg bg-white shadow-lg md:flex md:items-center">
-          <div className="md:w-1/3 flex justify-center self-start" style={{ marginTop: "50px" }}>
-            <img
-              src={data.founders[1].image}
-              alt="Person"
-              className="w-40 h-40 object-cover rounded-full border-4 border-[#64AE33] transition-transform transform hover:scale-105"
-            />
-          </div>
-          <div className="md:w-2/3 mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">{data.founders[1].name}</h3>
-            <p className="text-lg text-gray-500">{data.founders[1].title}</p>
-            <p className="mt-2 text-gray-600" dangerouslySetInnerHTML={{ __html: data.founders[1].short_description }}></p>
-            <div className="mt-4">
-              <p className="text-gray-600">
-                <span dangerouslySetInnerHTML={{ __html: isExpanded2 ? data.founders[1].long_description : truncatedText2 + '...' }}></span>
-                <a
-                  href="#"
-                  className="text-[#64AE33] font-medium ml-1 hover:underline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleReadMore2();
-                  }}
-                >
-                  {isExpanded2 ? 'Read Less' : 'Read More'}
-                </a>
-              </p>
+          return (
+            <div key={index} className="p-8 mx-4 mt-6 rounded-lg bg-white shadow-lg md:flex md:items-center">
+              <div className="md:w-1/3 flex justify-center self-start" style={{ marginTop: "50px" }}>
+                <img
+                  src={founder.image}
+                  alt="Person"
+                  className="w-40 h-40 object-cover rounded-full border-4 border-[#64AE33] transition-transform transform hover:scale-105"
+                />
+              </div>
+              <div className="md:w-2/3 mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+                <h3 className="text-2xl font-semibold text-gray-800">{founder.name}</h3>
+                <p className="text-lg text-gray-500">{founder.title}</p>
+                <p className="mt-2 text-gray-600" dangerouslySetInnerHTML={{ __html: founder.short_description }}></p>
+                <div className="mt-4">
+                  <p className="text-gray-600">
+                    <span dangerouslySetInnerHTML={{ __html: expandedStates[index] ? founder.long_description : truncatedText }}></span>
+                    {shouldShowReadMore && (
+                      <>
+                        {!expandedStates[index] && '...'}
+                        <a
+                          href="#"
+                          className="text-[#64AE33] font-medium ml-1 hover:underline"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleReadMore(index);
+                          }}
+                        >
+                          {expandedStates[index] ? 'Read Less' : 'Read More'}
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
 
         <div style={{ marginTop: "60px" }} className="px-8 max-w-[900px] mb-6 mx-auto">
           <h2 className="text-2xl text-[#3466ad] text-center text-gray-600 font-bold mb-6">{visiondata.introduction}</h2>
