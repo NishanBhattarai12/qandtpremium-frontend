@@ -267,6 +267,21 @@ const Dashboard = () => {
     }
   };
 
+  const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    let hours = date.getUTCHours();
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    hours = String(hours).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
+  };
+
   const getStatusIcon = (status) => {
     switch (status) {
       case "completed":
@@ -486,11 +501,11 @@ const Dashboard = () => {
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                       <div className="mb-2 sm:mb-0">
                         <p className="text-sm text-gray-500">Departure</p>
-                        <p className="font-medium text-gray-600">{new Date(flight.departure_time).toLocaleString()}</p>
+                        <p className="font-medium text-gray-600">{formatDateTime(flight.departure_time)}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Arrival</p>
-                        <p className="font-medium text-gray-600">{new Date(flight.arrival_time).toLocaleString()}</p>
+                        <p className="font-medium text-gray-600">{formatDateTime(flight.arrival_time)}</p>
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
@@ -506,7 +521,7 @@ const Dashboard = () => {
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                       <div className="mb-2 sm:mb-0">
                         <p className="text-sm text-gray-500">Booking Date</p>
-                        <p className="font-medium text-gray-600">{new Date(flight.booking_date).toLocaleDateString()}</p>
+                        <p className="font-medium text-gray-600">{formatDateTime(flight.booking_date)}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Price</p>
